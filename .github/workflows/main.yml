@@ -1,28 +1,25 @@
-name: Deploy to GitHub Pages via angular-cli-ghpages
-
+name: Build and Deploy
 on:
   push:
     branches:
       - master
 
+defaults:
+  run:
+    working-directory: ./Client
+
 jobs:
- build-and-deploy:
-   runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-   steps:
-   - name: Checkout
-     uses: actions/checkout@v2
-
-   - name: Use Node.js 10.x
-     uses: actions/setup-node@v1
-     with:
-       node-version: 10.x
-
-   - name: Prepare and deploy
-     working-directory: ./Client
-     env:
-       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-     run: |
-        npm install
-        npm run lint
-        npm run deploy 
+    steps:
+        
+        - uses: actions/checkout@v2
+        - name: Build App and deploy to Pages
+          
+          uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.2
+          
+          with:
+            github_access_token: ${{ secrets.GITHUB_TOKEN }} # see the Configuration section for how you can create secrets
+            base_href: /TenazasHealthIS/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
+            angular_dist_build_folder: dist/Client # The folder where your project is supposed to be after running ng build by the action.
