@@ -23,7 +23,6 @@ jobs:
      env:
        GH_TOKEN: ${{ secrets.GH_TOKEN }}
      run: |
-       cd Client
        npm install
        npm run lint
 
