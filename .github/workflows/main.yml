@@ -19,10 +19,10 @@ jobs:
        node-version: 10.x
 
    - name: Prepare and deploy
+     working-directory: ./Client
      env:
        GH_TOKEN: ${{ secrets.GH_TOKEN }}
      run: |
-       cd Client
        npm install
        npm run lint
 
