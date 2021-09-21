@@ -4,22 +4,17 @@ on:
     branches:
       - master
 
-defaults:
-  run:
-    working-directory: ./Client
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-        
-        - uses: actions/checkout@v2
-        - name: Build App and deploy to Pages
-          
-          uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.2
-          
-          with:
-            github_access_token: ${{ secrets.GITHUB_TOKEN }} # see the Configuration section for how you can create secrets
-            base_href: /TenazasHealthIS/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
-            angular_dist_build_folder: dist/Client # The folder where your project is supposed to be after running ng build by the action.
+      - uses: actions/checkout@v2
+      - name: Build App and deploy to Pages
+        uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.2
+
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }} # see the Configuration section for how you can create secrets
+          base_href: /TenazasHealthIS/ # make sure this corresponds to https://<your_username>.github.io/<base_href>/
+          angular_dist_build_folder: dist/Client # The folder where your project is supposed to be after running ng build by the action.
+          angular_project_dir: ./Client
