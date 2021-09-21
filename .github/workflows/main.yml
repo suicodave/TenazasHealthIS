@@ -22,7 +22,8 @@ jobs:
      env:
        GH_TOKEN: ${{ secrets.GH_TOKEN }}
      run: |
+       cd Client
        npm install
        npm run lint
 
-       npm run ng -- deploy --base-href=/TenazazHealthIS/ --name="suicodave" --email=suico.dave@gmail.com
+       npm run ng  deploy --base-href=/TenazazHealthIS/ --name="suicodave" --email=suico.dave@gmail.com
