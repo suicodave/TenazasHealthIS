@@ -4,7 +4,11 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-check-up-type-item',
   template: `
-    <div class="grid grid-cols-3 w-full items-center">
+    <div
+      class="grid grid-cols-3 w-full items-center"
+      (mouseenter)="showDelete = true"
+      (mouseleave)="showDelete = false"
+    >
       <p class="my-1 text-base">{{ item.name }}</p>
 
       <div class="meta place-self-center">
@@ -22,6 +26,7 @@ import { Component, Input, OnInit } from '@angular/core';
         class="place-self-end"
         appDeleteTrigger
         [id]="item.id!"
+        [ngClass]="{ 'hidden': !showDelete }"
       >
         <mat-icon class="text-gray-500"> delete_outline </mat-icon>
       </button>
@@ -30,6 +35,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CheckUpTypeItemComponent implements OnInit {
   @Input() item!: CheckUpTypeItem;
+
+  @Input() showDelete: boolean = false;
 
   constructor() {}
 
