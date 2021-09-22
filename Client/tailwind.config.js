@@ -4,7 +4,7 @@ module.exports = {
   prefix: "",
   important: true,
   purge: {
-    enabled: true,
+    enabled: guessProductionMode(),
     content: ["./src/**/*.{html,ts}"],
   },
   darkMode: false, // or 'media' or 'class'
