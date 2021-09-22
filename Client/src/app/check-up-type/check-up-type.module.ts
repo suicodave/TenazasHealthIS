@@ -1,6 +1,7 @@
 import { CHECK_UP_TYPE } from './../common/collection-names';
 import {
   COLLECTION_NAME,
+  DIALOG_COMPONENT,
   DOMAIN_DISPLAY_NAME,
 } from './../common/injection-tokens';
 import { MaterialModule } from './../material/material.module';
@@ -51,6 +52,10 @@ const routes: Routes = [
     {
       provide: DOMAIN_DISPLAY_NAME,
       useValue: 'Check-Up Type',
+    },
+    {
+      provide: DIALOG_COMPONENT,
+      useValue: CheckUpTypeFormComponent,
     },
   ],
 })
