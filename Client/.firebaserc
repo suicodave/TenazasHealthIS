@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tenazashealthis": {
+      "hosting": {
+        "Client": [
+          "tenazashealthis"
+        ]
+      }
+    }
+  }
+}
