@@ -7,7 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-  CollectionReference,
 } from '@angular/fire/firestore';
 
 @Component({
@@ -20,7 +19,7 @@ import {
           <button
             mat-button
             class="bg-blue-500  rounded-lg text-white"
-            (click)="create()"
+            appFormCreateTrigger
           >
             Add Type
           </button>
@@ -44,9 +43,6 @@ export class CheckUpTypeListComponent implements OnInit {
   collectionRef!: AngularFirestoreCollection<CheckUpTypeItem>;
 
   constructor(
-    private dialog: MatDialog,
-    private containerRef: ViewContainerRef,
-
     private firestore: AngularFirestore,
 
     @Inject(COLLECTION_NAME) private collectionName: string
@@ -55,15 +51,8 @@ export class CheckUpTypeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.collectionRef.valueChanges({idField:'id'}).subscribe((x) => {
+    this.collectionRef.valueChanges({ idField: 'id' }).subscribe((x) => {
       this.items = x;
-    });
-  }
-
-  create() {
-    this.dialog.open(CheckUpTypeFormComponent, {
-      minWidth: '398px',
-      viewContainerRef: this.containerRef,
     });
   }
 }
