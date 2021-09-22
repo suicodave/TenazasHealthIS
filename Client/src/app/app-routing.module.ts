@@ -1,8 +1,8 @@
+import { GalleryModule } from './gallery/gallery.module';
 import { GalleryGridComponent } from './gallery/gallery-grid.component';
 import { AuthModule } from './auth/auth.module';
-import { LoginPageComponent } from './auth/login-page.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {
   AngularFireAuthGuard,
   redirectLoggedInTo,
@@ -14,24 +14,30 @@ const redirectLoggedInToItems = () => redirectLoggedInTo(['']);
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginPageComponent,
-    data: {
-      authGuardPipe: redirectLoggedInTo,
-    },
-  },
-  {
     path: '',
-    component: GalleryGridComponent,
+    loadChildren: () =>
+      import('./gallery/gallery.module').then((m) => m.GalleryModule),
     canActivate: [AngularFireAuthGuard],
     data: {
       authGuardPipe: redirectUnauthorizedToLogin,
     },
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    data: {
+      authGuardPipe: redirectLoggedInToItems,
+    },
+    canActivate: [AngularFireAuthGuard],
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), AuthModule],
-  exports: [RouterModule, AuthModule],
+  imports: [
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules,
+    }),
+  ],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
