@@ -30,6 +30,17 @@ const routes: Routes = [
     },
     canActivate: [AngularFireAuthGuard],
   },
+  {
+    path: 'CheckUpTypes',
+    loadChildren: () =>
+      import('./check-up-type/check-up-type.module').then(
+        (m) => m.CheckUpTypeModule
+      ),
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+    },
+  },
 ];
 
 @NgModule({

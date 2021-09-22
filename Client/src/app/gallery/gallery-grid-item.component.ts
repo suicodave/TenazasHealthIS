@@ -2,9 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-gallery-grid-item',
-  template: ` <mat-card>
-    {{ item.name }}
-  </mat-card>`,
+  template: `
+    <a [href]="item.path">
+      <mat-card>
+        {{ item.name }}
+      </mat-card>
+    </a>
+  `,
 })
 export class GalleryGridItemComponent implements OnInit {
   @Input() item!: GalleryGridItem;
