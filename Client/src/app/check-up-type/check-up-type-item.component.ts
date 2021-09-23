@@ -26,7 +26,7 @@ import { Component, Input, OnInit } from '@angular/core';
         class="place-self-end"
         appDeleteTrigger
         [id]="item.id!"
-        [ngClass]="{ 'hidden': !showDelete }"
+        [ngClass]="{ hidden: !showDelete }"
       >
         <mat-icon class="text-gray-500"> delete_outline </mat-icon>
       </button>
