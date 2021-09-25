@@ -1,8 +1,8 @@
-import { AuditableModel } from './../common/dto';
+import { AuditableModel } from '../common/dto';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-check-up-type-item',
+  selector: 'app-engagement-type-item',
   template: `
     <div
       class="grid grid-cols-3 w-full items-center"
@@ -33,8 +33,8 @@ import { Component, Input, OnInit } from '@angular/core';
     </div>
   `,
 })
-export class CheckUpTypeItemComponent implements OnInit {
-  @Input() item!: CheckUpTypeItem;
+export class EngagementTypeItemComponent implements OnInit {
+  @Input() item!: EngagementTypeItem;
 
   @Input() showDelete: boolean = false;
 
@@ -43,6 +43,6 @@ export class CheckUpTypeItemComponent implements OnInit {
   ngOnInit(): void {}
 }
 
-export interface CheckUpTypeItem extends AuditableModel {
+export interface EngagementTypeItem extends AuditableModel {
   name: string;
 }

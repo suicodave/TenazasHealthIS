@@ -13,11 +13,17 @@ import { PatientTableComponent } from './patient-table.component';
 import { PatientFormComponent } from './patient-form.component';
 import { SharedModule } from '../common/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PatientDetailPageComponent } from './patient-detail-page.component';
+import { PatientPropertyCardComponent } from './patient-property-card.component';
 
 const routes: Routes = [
   {
     path: '',
     component: PatientPageComponent,
+  },
+  {
+    path: ':id',
+    component: PatientDetailPageComponent,
   },
 ];
 
@@ -26,6 +32,8 @@ const routes: Routes = [
     PatientPageComponent,
     PatientTableComponent,
     PatientFormComponent,
+    PatientDetailPageComponent,
+    PatientPropertyCardComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +42,13 @@ const routes: Routes = [
     ReactiveFormsModule,
     MaterialModule,
   ],
-  exports: [PatientPageComponent, PatientTableComponent, PatientFormComponent],
+  exports: [
+    PatientPageComponent,
+    PatientTableComponent,
+    PatientFormComponent,
+    PatientDetailPageComponent,
+    PatientPropertyCardComponent,
+  ],
   providers: [
     {
       provide: COLLECTION_NAME,

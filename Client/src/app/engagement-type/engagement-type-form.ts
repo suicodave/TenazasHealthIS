@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-check-up-type-form',
+  selector: 'app-engagement-type-form',
   template: `
     <app-form [form]="form" [formGroup]="form">
       <div>
@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
     </app-form>
   `,
 })
-export class CheckUpTypeFormComponent implements OnInit {
+export class EngagementTypeFormComponent implements OnInit {
   form!: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {}

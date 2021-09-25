@@ -16,7 +16,7 @@ import { Timestamp } from '@firebase/firestore-types';
     <mat-card class="p-0  rounded-xl">
       <mat-card class="rounded-t-xl mat-elevation-z0 ">
         <div class="flex justify-between items-center">
-          <div class="text-gray-600 text-lg">Patient Profiles</div>
+          <div class="text-gray-600 text-lg">Patients</div>
           <div class="controls ">
             <button
               mat-button
@@ -79,9 +79,13 @@ import { Timestamp } from '@firebase/firestore-types';
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
             <div class="w-full flex justify-end text-gray-500">
-              <button mat-icon-button class="self-end">
+              <a
+                mat-icon-button
+                class="self-end"
+                [routerLink]="['./', element.id]"
+              >
                 <mat-icon>launch</mat-icon>
-              </button>
+              </a>
             </div>
           </td>
         </ng-container>
