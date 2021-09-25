@@ -41,6 +41,15 @@ const routes: Routes = [
       authGuardPipe: redirectUnauthorizedToLogin,
     },
   },
+  {
+    path: 'Patients',
+    loadChildren: () =>
+      import('./patient/patient.module').then((m) => m.PatientModule),
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+    },
+  },
 ];
 
 @NgModule({
