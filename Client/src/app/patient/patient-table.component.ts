@@ -79,9 +79,13 @@ import { Timestamp } from '@firebase/firestore-types';
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
             <div class="w-full flex justify-end text-gray-500">
-              <button mat-icon-button class="self-end">
+              <a
+                mat-icon-button
+                class="self-end"
+                [routerLink]="['./', element.id]"
+              >
                 <mat-icon>launch</mat-icon>
-              </button>
+              </a>
             </div>
           </td>
         </ng-container>
