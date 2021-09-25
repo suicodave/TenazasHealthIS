@@ -12,7 +12,7 @@ import {
 @Component({
   selector: 'app-check-up-type-list',
   template: `
-    <mat-card>
+    <mat-card class="rounded-lg">
       <div class="flex justify-between">
         <h1 class="text-gray-600">Check-Up Types</h1>
         <div class="controls ">

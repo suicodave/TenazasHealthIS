@@ -17,6 +17,10 @@ export class GalleryGridComponent implements OnInit {
       name: 'Check-Up Types',
       path: './CheckUpTypes',
     },
+    {
+      name: 'Patients',
+      path: './Patients',
+    },
   ];
 
   constructor() {}

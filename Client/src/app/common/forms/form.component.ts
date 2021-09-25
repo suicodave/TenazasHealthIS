@@ -12,7 +12,7 @@ import {
   selector: 'app-form',
   template: `
     <form [formGroup]="form" (ngSubmit)="save()">
-      <h2 mat-dialog-title class="text-gray-600">{{ displayName }}</h2>
+      <h2 mat-dialog-title class="text-gray-600">New {{ displayName }}</h2>
       <mat-dialog-content>
         <ng-content></ng-content>
       </mat-dialog-content>
