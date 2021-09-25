@@ -16,7 +16,7 @@ import { Timestamp } from '@firebase/firestore-types';
     <mat-card class="p-0  rounded-xl">
       <mat-card class="rounded-t-xl mat-elevation-z0 ">
         <div class="flex justify-between items-center">
-          <div class="text-gray-600 text-lg">Patient Profiles</div>
+          <div class="text-gray-600 text-lg">Patients</div>
           <div class="controls ">
             <button
               mat-button
