@@ -1,3 +1,3 @@
-export const CHECK_UP_TYPE = 'CheckUpTypes';
+export const ENGAGEMENT_TYPE = 'EngagementTypes';
 
 export const PATIENT = 'Patients';

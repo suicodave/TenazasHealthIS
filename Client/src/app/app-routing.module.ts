@@ -31,10 +31,10 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
   },
   {
-    path: 'CheckUpTypes',
+    path: 'EngagementTypes',
     loadChildren: () =>
-      import('./check-up-type/check-up-type.module').then(
-        (m) => m.CheckUpTypeModule
+      import('./engagement-type/engagement-type.module').then(
+        (m) => m.EngagementTypeModule
       ),
     canActivate: [AngularFireAuthGuard],
     data: {

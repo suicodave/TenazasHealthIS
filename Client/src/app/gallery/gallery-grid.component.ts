@@ -14,8 +14,8 @@ import { GalleryGridItem } from './gallery-grid-item.component';
 export class GalleryGridComponent implements OnInit {
   items: GalleryGridItem[] = [
     {
-      name: 'Check-Up Types',
-      path: './CheckUpTypes',
+      name: 'Engagement Types',
+      path: './EngagementTypes',
     },
     {
       name: 'Patients',
