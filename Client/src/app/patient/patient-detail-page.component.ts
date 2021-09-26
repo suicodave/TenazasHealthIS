@@ -18,7 +18,7 @@ import { Patient } from './patient-table.component';
         <p class="text-xs">{{ id }}</p>
       </div>
 
-      <div class="p-8 col-span-6">
+      <div class="p-8 mb-8 col-span-6">
         <div class="grid grid-cols-3 gap-4">
           <app-patient-property-card key="First Name">{{
             data?.firstName
@@ -34,7 +34,7 @@ import { Patient } from './patient-table.component';
           }}</app-patient-property-card>
 
           <div class="col-span-2">
-            <app-patient-property-card key="Address" icon="home" >{{
+            <app-patient-property-card key="Address" icon="home">{{
               data?.address
             }}</app-patient-property-card>
           </div>
@@ -51,6 +51,9 @@ import { Patient } from './patient-table.component';
             age
           }}</app-patient-property-card>
         </div>
+      </div>
+      <div class="p-8">
+        <app-engagement-by-patient></app-engagement-by-patient>
       </div>
     </div>
   `,

@@ -1,3 +1,4 @@
+import { EngagementModule } from './../engagement/engagement.module';
 import { PATIENT } from './../common/collection-names';
 import {
   COLLECTION_NAME,
@@ -41,6 +42,7 @@ const routes: Routes = [
     SharedModule,
     ReactiveFormsModule,
     MaterialModule,
+    EngagementModule,
   ],
   exports: [
     PatientPageComponent,
