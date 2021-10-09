@@ -1,3 +1,4 @@
+import { EngagementTypeModule } from './../engagement-type/engagement-type.module';
 import { ENGAGEMENT } from './../common/collection-names';
 import {
   COLLECTION_NAME,
@@ -14,7 +15,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [EngagementByPatientComponent, EngagementFormComponent],
-  imports: [CommonModule, MaterialModule, SharedModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    SharedModule,
+    ReactiveFormsModule,
+  ],
   exports: [EngagementByPatientComponent, EngagementFormComponent],
   providers: [
     {

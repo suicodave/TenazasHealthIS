@@ -1,3 +1,4 @@
+import { EngagementTypeItem } from './../engagement-type/engagement-type-item.component';
 import { Timestamp } from '@firebase/firestore-types';
 import { AuditableModel } from './../common/dto';
 export interface Engagement extends AuditableModel {
@@ -13,7 +14,7 @@ export interface Engagement extends AuditableModel {
 
   temperature: number;
 
-  engagementTypeId: string;
+  engagementType: EngagementTypeItem;
 
   patientId: string;
 

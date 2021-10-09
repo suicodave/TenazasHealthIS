@@ -1,5 +1,9 @@
+import { ENGAGEMENT_TYPE } from './../common/collection-names';
+import { EngagementTypeItem } from './../engagement-type/engagement-type-item.component';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-engagement-form',
@@ -65,22 +69,19 @@ import { Component, OnInit } from '@angular/core';
           <textarea required formControlName="story" matInput></textarea>
         </mat-form-field>
 
-        <!-- <mat-form-field appearance="outline">
-          <mat-label>Civil Status</mat-label>
-          <mat-select formControlName="civilStatus">
-            <mat-option
-              *ngFor="let civilStatus of civilStatuses"
-              [value]="civilStatus"
-            >
-              {{ civilStatus }}
+        <mat-form-field appearance="outline">
+          <mat-label>Engagement Type</mat-label>
+          <mat-select formControlName="engagementType">
+            <mat-option *ngFor="let item of engagementTypes" [value]="item">
+              {{ item.name }}
             </mat-option>
           </mat-select>
-        </mat-form-field> -->
+        </mat-form-field>
       </div>
     </app-form>
   `,
 })
-export class EngagementFormComponent implements OnInit {
+export class EngagementFormComponent implements OnInit, OnDestroy {
   form: FormGroup = this.formBuilder.group({
     height: [0, Validators.required],
     weight: [0, Validators.required],
@@ -89,9 +90,31 @@ export class EngagementFormComponent implements OnInit {
     temperature: [0, Validators.required],
     story: ['', Validators.required],
     engagementDate: [new Date(Date.now()), Validators.required],
+    engagementType: ['', Validators.required],
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  engagementTypes: EngagementTypeItem[] = [];
 
-  ngOnInit(): void {}
+  subscription = new Subscription();
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private firestore: AngularFirestore
+  ) {}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.getEngagementTypes();
+  }
+
+  getEngagementTypes() {
+    this.subscription = this.firestore
+      .collection<EngagementTypeItem>(ENGAGEMENT_TYPE, (ref) =>
+        ref.orderBy('name', 'asc')
+      )
+      .valueChanges({ idField: 'id' })
+      .subscribe((x) => (this.engagementTypes = x));
+  }
 }
