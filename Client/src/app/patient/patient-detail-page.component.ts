@@ -15,7 +15,7 @@ import { Patient } from './patient-table.component';
           {{ data?.firstName | titlecase }} {{ data?.middleName | titlecase }}
           {{ data?.lastName | titlecase }}
         </p>
-        <p class="text-xs">{{ id }}</p>
+        <p class="text-xs">ID: {{ id }}</p>
       </div>
 
       <div class="p-8 mb-8 col-span-6">
@@ -87,7 +87,7 @@ export class PatientDetailPageComponent implements OnInit {
   }
 
   get age(): number {
-    const fromDate = this.data.birthDate.toDate().getFullYear();
+    const fromDate = this.data?.birthDate.toDate().getFullYear();
 
     const toDate = new Date(Date.now()).getFullYear();
 

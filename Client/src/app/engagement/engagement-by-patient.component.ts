@@ -28,58 +28,73 @@ import { EngagementFormComponent } from './engagement-form.component';
         </div>
       </mat-card>
 
-
       <table
         mat-table
         [dataSource]="dataSource"
-        class="rounded-none   mat-elevation-z0 w-full"
+        class="rounded-b-xl  mat-elevation-z0 w-full"
       >
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>Id</th>
           <td mat-cell *matCellDef="let element">{{ element.id }}</td>
         </ng-container>
-        <ng-container matColumnDef="firstName">
-          <th mat-header-cell *matHeaderCellDef>First Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="middleName">
-          <th mat-header-cell *matHeaderCellDef>Middle Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.middleName }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="lastName">
-          <th mat-header-cell *matHeaderCellDef>Last Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="address">
-          <th mat-header-cell *matHeaderCellDef>Address</th>
-          <td mat-cell *matCellDef="let element">{{ element.address }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="birthDate">
-          <th mat-header-cell *matHeaderCellDef>Birth Date</th>
+        <ng-container matColumnDef="bloodPressure">
+          <th mat-header-cell *matHeaderCellDef>Blood Pressure</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.birthDate.toDate() | date: 'shortDate' }}
+            {{ element.systolicBloodPressure }}/{{
+              element.diastolicBloodPressure
+            }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="civilStatus">
-          <th mat-header-cell *matHeaderCellDef>Civil Status</th>
-          <td mat-cell *matCellDef="let element">{{ element.civilStatus }}</td>
+        <ng-container matColumnDef="temperature">
+          <th mat-header-cell *matHeaderCellDef>Temperature</th>
+          <td mat-cell *matCellDef="let element">{{ element.temperature }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="sex">
-          <th mat-header-cell *matHeaderCellDef>Sex</th>
-          <td mat-cell *matCellDef="let element">{{ element.sex }}</td>
+        <ng-container matColumnDef="engagementType">
+          <th mat-header-cell *matHeaderCellDef>Engagement Type</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.engagementType.name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="height">
+          <th mat-header-cell *matHeaderCellDef>Height</th>
+          <td mat-cell *matCellDef="let element">{{ element.height }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef>Weight</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.weight }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="options">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex justify-end">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item appDeleteTrigger [id]="element.id!">
+                  Delete
+                </button>
+              </mat-menu>
+            </div>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns; last as isLast"
+        ></tr>
       </table>
     </mat-card>
   `,
+  styleUrls: ['./engagement-by-patient-component.scss'],
   providers: [
     {
       provide: COLLECTION_NAME,
@@ -103,6 +118,7 @@ export class EngagementByPatientComponent implements OnInit {
     'engagementType',
     'height',
     'weight',
+    'options',
   ];
 
   dataSource: Engagement[] = [];
