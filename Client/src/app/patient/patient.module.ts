@@ -1,6 +1,7 @@
 import { EngagementModule } from './../engagement/engagement.module';
 import { PATIENT } from './../common/collection-names';
 import {
+  COLLECTION_DISPLAY_NAME,
   COLLECTION_NAME,
   DIALOG_COMPONENT,
   DOMAIN_DISPLAY_NAME,
@@ -63,6 +64,10 @@ const routes: Routes = [
     {
       provide: DOMAIN_DISPLAY_NAME,
       useValue: 'Patient',
+    },
+    {
+      provide: COLLECTION_DISPLAY_NAME,
+      useValue: PATIENT,
     },
   ],
 })

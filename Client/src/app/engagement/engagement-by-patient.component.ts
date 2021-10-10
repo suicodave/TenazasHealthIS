@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ENGAGEMENT } from '../common/collection-names';
 import {
+  COLLECTION_DISPLAY_NAME,
   COLLECTION_NAME,
   DIALOG_COMPONENT,
   DOMAIN_DISPLAY_NAME,
@@ -12,87 +13,64 @@ import { EngagementFormComponent } from './engagement-form.component';
 @Component({
   selector: 'app-engagement-by-patient',
   template: `
-    <mat-card class="p-0  rounded-xl">
-      <mat-card class="rounded-t-xl mat-elevation-z0 ">
-        <div class="flex justify-between items-center">
-          <div class="text-gray-600 text-lg">Engagements</div>
-          <div class="controls ">
-            <button
-              mat-button
-              class="bg-blue-500  rounded-lg text-white"
-              appFormCreateTrigger
-            >
-              New Engagement
+    <app-table
+      [columns]="displayedColumns"
+      orderByField="createdAt"
+      orderByDirection="desc"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="bloodPressure">
+        <th mat-header-cell *matHeaderCellDef>Blood Pressure</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.systolicBloodPressure }}/{{
+            element.diastolicBloodPressure
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="temperature">
+        <th mat-header-cell *matHeaderCellDef>Temperature</th>
+        <td mat-cell *matCellDef="let element">{{ element.temperature }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="engagementType">
+        <th mat-header-cell *matHeaderCellDef>Engagement Type</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.engagementType.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="height">
+        <th mat-header-cell *matHeaderCellDef>Height</th>
+        <td mat-cell *matCellDef="let element">{{ element.height }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef>Weight</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.weight }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div class="flex justify-end">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
             </button>
-          </div>
-        </div>
-      </mat-card>
-
-      <table
-        mat-table
-        [dataSource]="dataSource"
-        class="rounded-b-xl  mat-elevation-z0 w-full"
-      >
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>Id</th>
-          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-        </ng-container>
-        <ng-container matColumnDef="bloodPressure">
-          <th mat-header-cell *matHeaderCellDef>Blood Pressure</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.systolicBloodPressure }}/{{
-              element.diastolicBloodPressure
-            }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="temperature">
-          <th mat-header-cell *matHeaderCellDef>Temperature</th>
-          <td mat-cell *matCellDef="let element">{{ element.temperature }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="engagementType">
-          <th mat-header-cell *matHeaderCellDef>Engagement Type</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.engagementType.name }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="height">
-          <th mat-header-cell *matHeaderCellDef>Height</th>
-          <td mat-cell *matCellDef="let element">{{ element.height }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="weight">
-          <th mat-header-cell *matHeaderCellDef>Weight</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.weight }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="options">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element">
-            <div class="flex justify-end">
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item appDeleteTrigger [id]="element.id!">
+                Delete
               </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item appDeleteTrigger [id]="element.id!">
-                  Delete
-                </button>
-              </mat-menu>
-            </div>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr
-          mat-row
-          *matRowDef="let row; columns: displayedColumns; last as isLast"
-        ></tr>
-      </table>
-    </mat-card>
+            </mat-menu>
+          </div>
+        </td>
+      </ng-container>
+    </app-table>
   `,
   styleUrls: ['./engagement-by-patient-component.scss'],
   providers: [
@@ -106,7 +84,11 @@ import { EngagementFormComponent } from './engagement-form.component';
     },
     {
       provide: DOMAIN_DISPLAY_NAME,
-      useValue: 'Engagements',
+      useValue: 'Engagement',
+    },
+    {
+      provide: COLLECTION_DISPLAY_NAME,
+      useValue: ENGAGEMENT,
     },
   ],
 })
