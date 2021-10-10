@@ -1,6 +1,7 @@
 import { EngagementTypeModule } from './../engagement-type/engagement-type.module';
 import { ENGAGEMENT } from './../common/collection-names';
 import {
+  COLLECTION_DISPLAY_NAME,
   COLLECTION_NAME,
   DIALOG_COMPONENT,
   DOMAIN_DISPLAY_NAME,
@@ -15,12 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [EngagementByPatientComponent, EngagementFormComponent],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    SharedModule,
-    ReactiveFormsModule,
-  ],
+  imports: [CommonModule, MaterialModule, SharedModule, ReactiveFormsModule],
   exports: [EngagementByPatientComponent, EngagementFormComponent],
   providers: [
     {
@@ -33,7 +29,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     },
     {
       provide: DOMAIN_DISPLAY_NAME,
-      useValue: 'Engagements',
+      useValue: 'Engagement',
+    },
+    {
+      provide: COLLECTION_DISPLAY_NAME,
+      useValue: ENGAGEMENT,
     },
   ],
 })

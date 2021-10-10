@@ -6,6 +6,7 @@ import { DeleteDialogComponent } from './delete/delete-dialog.component';
 import { FormCreateTriggerDirective } from './forms/form-create-trigger.directive';
 import { FormComponent } from './forms/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableComponent } from './table.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DeleteDialogComponent,
     FormCreateTriggerDirective,
     FormComponent,
+    TableComponent,
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   exports: [
@@ -20,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DeleteDialogComponent,
     FormCreateTriggerDirective,
     FormComponent,
+    TableComponent,
   ],
 })
 export class SharedModule {}
