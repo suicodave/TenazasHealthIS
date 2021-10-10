@@ -50,6 +50,14 @@ const routes: Routes = [
       authGuardPipe: redirectUnauthorizedToLogin,
     },
   },
+  {
+    path: 'Users',
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+    },
+  },
 ];
 
 @NgModule({
