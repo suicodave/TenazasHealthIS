@@ -23,6 +23,7 @@ import { TableComponent } from './table.component';
     FormCreateTriggerDirective,
     FormComponent,
     TableComponent,
+    MaterialModule,
   ],
 })
 export class SharedModule {}
