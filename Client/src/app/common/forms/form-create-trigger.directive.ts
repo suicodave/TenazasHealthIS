@@ -3,6 +3,7 @@ import {
   Directive,
   HostListener,
   Inject,
+  Input,
   ViewContainerRef,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
   selector: '[appFormCreateTrigger]',
 })
 export class FormCreateTriggerDirective {
+  @Input() parentData: any = null;
   constructor(
     @Inject(DIALOG_COMPONENT) private componentName: any,
     private dialog: MatDialog,
@@ -22,6 +24,7 @@ export class FormCreateTriggerDirective {
     this.dialog.open(this.componentName, {
       viewContainerRef: this.containerRef,
       minWidth: '398px',
+      data: this.parentData,
     });
   }
 }

@@ -1,6 +1,11 @@
 import { Engagement } from './engagement-dto';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  AngularFirestore,
+  CollectionReference,
+  DocumentData,
+  Query,
+} from '@angular/fire/firestore';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ENGAGEMENT } from '../common/collection-names';
 import {
   COLLECTION_DISPLAY_NAME,
@@ -9,14 +14,19 @@ import {
   DOMAIN_DISPLAY_NAME,
 } from '../common/injection-tokens';
 import { EngagementFormComponent } from './engagement-form.component';
+import { Patient } from '../patient/patient-table.component';
 
 @Component({
   selector: 'app-engagement-by-patient',
   template: `
     <app-table
+      *ngIf="parentId"
+      [parentData]="parentData"
+      [parentId]="parentId"
       [columns]="displayedColumns"
       orderByField="createdAt"
       orderByDirection="desc"
+      [filterByParent]="filterByPatient"
     >
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -113,19 +123,21 @@ export class EngagementByPatientComponent implements OnInit {
 
   dataSource: Engagement[] = [];
 
+  @Input() parentId: string = 'asd';
+
+  @Input() parentData: Patient | null = null;
+
+  filterByPatient(
+    ref: CollectionReference<DocumentData>,
+    parentId: string
+  ): Query<DocumentData> {
+    return ref.where('patient.id', '==', parentId);
+  }
+
   constructor(
     private firestore: AngularFirestore,
     @Inject(COLLECTION_NAME) private collectionName: string
   ) {}
 
-  ngOnInit(): void {
-    this.firestore
-      .collection<Engagement>(this.collectionName, (ref) => {
-        return ref.orderBy('createdAt', 'desc');
-      })
-      .valueChanges({ idField: 'id' })
-      .subscribe((x) => {
-        this.dataSource = x;
-      });
-  }
+  ngOnInit(): void {}
 }
