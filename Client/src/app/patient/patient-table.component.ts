@@ -17,35 +17,38 @@ import { Timestamp } from '@firebase/firestore-types';
       [columns]="displayedColumns"
       orderByField="createdAt"
       orderByDirection="desc"
+      matSort
+      #matSort="matSort"
+      [sort]="matSort"
     >
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
       <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef>First Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
         <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="middleName">
-        <th mat-header-cell *matHeaderCellDef>Middle Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Middle Name</th>
         <td mat-cell *matCellDef="let element">{{ element.middleName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef>Last Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
         <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="address">
-        <th mat-header-cell *matHeaderCellDef>Address</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
         <td mat-cell *matCellDef="let element">{{ element.address }}</td>
       </ng-container>
 
       <ng-container matColumnDef="birthDate">
-        <th mat-header-cell *matHeaderCellDef>Birth Date</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Birth Date</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.birthDate.toDate() | date: 'shortDate' }}
+          {{ element.birthDate.toDate() | date: 'mediumDate' }}
         </td>
       </ng-container>
 
@@ -55,8 +58,13 @@ import { Timestamp } from '@firebase/firestore-types';
       </ng-container>
 
       <ng-container matColumnDef="sex">
-        <th mat-header-cell *matHeaderCellDef>Sex</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sex</th>
         <td mat-cell *matCellDef="let element">{{ element.sex }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
+        <td mat-cell *matCellDef="let element">{{ element.createdAt.toDate() | date }}</td>
       </ng-container>
 
       <ng-container matColumnDef="options">
@@ -87,6 +95,7 @@ export class PatientTableComponent {
     'civilStatus',
     'sex',
     'options',
+    'createdAt',
   ];
 }
 
