@@ -24,16 +24,19 @@ import { Patient } from '../patient/patient-table.component';
       [parentData]="parentData"
       [parentId]="parentId"
       [columns]="displayedColumns"
-      orderByField="createdAt"
-      orderByDirection="desc"
       [filterByParent]="filterByPatient"
+      matSort
+      #matSort="matSort"
+      [sort]="matSort"
     >
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
       <ng-container matColumnDef="bloodPressure">
-        <th mat-header-cell *matHeaderCellDef>Blood Pressure</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Blood Pressure
+        </th>
         <td mat-cell *matCellDef="let element">
           {{ element.systolicBloodPressure }}/{{
             element.diastolicBloodPressure
@@ -42,31 +45,33 @@ import { Patient } from '../patient/patient-table.component';
       </ng-container>
 
       <ng-container matColumnDef="temperature">
-        <th mat-header-cell *matHeaderCellDef>Temperature</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Temperature</th>
         <td mat-cell *matCellDef="let element">{{ element.temperature }}</td>
       </ng-container>
 
       <ng-container matColumnDef="engagementType">
-        <th mat-header-cell *matHeaderCellDef>Engagement Type</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Engagement Type
+        </th>
         <td mat-cell *matCellDef="let element">
           {{ element.engagementType.name }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="height">
-        <th mat-header-cell *matHeaderCellDef>Height</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Height</th>
         <td mat-cell *matCellDef="let element">{{ element.height }}</td>
       </ng-container>
 
       <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef>Weight</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Weight</th>
         <td mat-cell *matCellDef="let element">
           {{ element.weight }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
         <td mat-cell *matCellDef="let element">
           {{ element.createdAt.toDate() | date }}
         </td>
