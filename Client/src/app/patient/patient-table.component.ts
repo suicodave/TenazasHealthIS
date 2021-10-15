@@ -15,8 +15,6 @@ import { Timestamp } from '@firebase/firestore-types';
   template: `
     <app-table
       [columns]="displayedColumns"
-      orderByField="createdAt"
-      orderByDirection="desc"
       matSort
       #matSort="matSort"
       [sort]="matSort"
@@ -26,27 +24,27 @@ import { Timestamp } from '@firebase/firestore-types';
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
       <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+        <th mat-header-cell *matHeaderCellDef>First Name</th>
         <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="middleName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Middle Name</th>
+        <th mat-header-cell *matHeaderCellDef>Middle Name</th>
         <td mat-cell *matCellDef="let element">{{ element.middleName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+        <th mat-header-cell *matHeaderCellDef>Last Name</th>
         <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="address">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+        <th mat-header-cell *matHeaderCellDef>Address</th>
         <td mat-cell *matCellDef="let element">{{ element.address }}</td>
       </ng-container>
 
       <ng-container matColumnDef="birthDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Birth Date</th>
+        <th mat-header-cell *matHeaderCellDef>Birth Date</th>
         <td mat-cell *matCellDef="let element">
           {{ element.birthDate.toDate() | date: 'mediumDate' }}
         </td>
@@ -58,13 +56,15 @@ import { Timestamp } from '@firebase/firestore-types';
       </ng-container>
 
       <ng-container matColumnDef="sex">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sex</th>
+        <th mat-header-cell *matHeaderCellDef>Sex</th>
         <td mat-cell *matCellDef="let element">{{ element.sex }}</td>
       </ng-container>
 
       <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-        <td mat-cell *matCellDef="let element">{{ element.createdAt.toDate() | date }}</td>
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdAt.toDate() | date }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="options">
