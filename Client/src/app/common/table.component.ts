@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/internal/Observable';
 import {
   COLLECTION_DISPLAY_NAME,
   COLLECTION_NAME,
@@ -6,15 +7,25 @@ import {
 import { AngularFirestore } from '@angular/fire/firestore';
 import {
   AfterContentInit,
+  AfterViewInit,
   Component,
   ContentChildren,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
   QueryList,
   ViewChild,
 } from '@angular/core';
-import { MatColumnDef, MatTable } from '@angular/material/table';
+import {
+  MatColumnDef,
+  MatTable,
+  MatTableDataSource,
+} from '@angular/material/table';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -35,21 +46,23 @@ import { MatColumnDef, MatTable } from '@angular/material/table';
         </div>
       </mat-card>
 
-      <table
-        mat-table
-        [dataSource]="items"
-        class="rounded-none   mat-elevation-z0 w-full"
-      >
-        <ng-content></ng-content>
+      <div class="max-h-96 overflow-y-auto">
+        <table
+          mat-table
+          [dataSource]="datasource"
+          class="rounded-none   mat-elevation-z0 w-full"
+        >
+          <ng-content></ng-content>
 
-        <tr mat-header-row *matHeaderRowDef="columns"></tr>
-        <tr mat-row *matRowDef="let row; columns: columns"></tr>
-      </table>
+          <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        </table>
+      </div>
       <mat-paginator
         class="rounded-b-xl"
         [length]="100"
         [pageSize]="10"
-        [pageSizeOptions]="[1, 5, 10, 25, 100]"
+        [pageSizeOptions]="[10, 25, 100]"
         aria-label="Select page"
       >
       </mat-paginator>
@@ -57,18 +70,28 @@ import { MatColumnDef, MatTable } from '@angular/material/table';
   `,
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit, AfterContentInit {
+export class TableComponent
+  implements OnInit, AfterContentInit, AfterViewInit, OnDestroy
+{
   @Input() columns: string[] = [];
 
   @Input() orderByField: string | undefined = undefined;
 
-  @Input() orderByDirection: 'desc' | 'asc' = 'asc';
+  @Input() orderByDirection: 'desc' | 'asc' = 'desc';
+
+  @Input() sort: MatSort | null = null;
 
   @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
 
   @ViewChild(MatTable, { static: true }) table!: MatTable<any>;
 
-  items = this.firestore
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+  datasource!: MatTableDataSource<any>;
+
+  subscription: Subscription = new Subscription();
+
+  items: Observable<any[]> = this.firestore
     .collection(this.collectionName, (ref) => {
       if (this.orderByField) {
         ref.orderBy(this.orderByField, this.orderByDirection);
@@ -86,9 +109,23 @@ export class TableComponent implements OnInit, AfterContentInit {
 
     @Inject(DOMAIN_DISPLAY_NAME) public domainName: string
   ) {}
+
+  ngAfterViewInit(): void {
+    // this.datasource.sort = this.sort;
+  }
   ngAfterContentInit(): void {
     this.columnDefs.forEach((columnDef) => this.table.addColumnDef(columnDef));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription = this.items.subscribe((x) => {
+      this.datasource = new MatTableDataSource(x);
+      this.datasource.paginator = this.paginator;
+      this.datasource.sort = this.sort;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

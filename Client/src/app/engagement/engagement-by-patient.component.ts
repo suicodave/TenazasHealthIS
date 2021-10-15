@@ -55,6 +55,13 @@ import { EngagementFormComponent } from './engagement-form.component';
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdAt.toDate() | date }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="options">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
@@ -100,6 +107,7 @@ export class EngagementByPatientComponent implements OnInit {
     'engagementType',
     'height',
     'weight',
+    'createdAt',
     'options',
   ];
 
