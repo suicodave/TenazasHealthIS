@@ -53,13 +53,17 @@ import { Patient } from './patient-table.component';
         </div>
       </div>
       <div class="p-8">
-        <app-engagement-by-patient></app-engagement-by-patient>
+        <app-engagement-by-patient
+          *ngIf="id"
+          [parentData]="data"
+          [parentId]="id"
+        ></app-engagement-by-patient>
       </div>
     </div>
   `,
 })
 export class PatientDetailPageComponent implements OnInit {
-  id: string = '';
+  id: string | null = this.route.snapshot.paramMap.get('id');
 
   data!: Patient;
 
@@ -68,7 +72,6 @@ export class PatientDetailPageComponent implements OnInit {
     private firestore: AngularFirestore,
     @Inject(COLLECTION_NAME) private collectionName: string
   ) {
-    this.id = this.route.snapshot.paramMap.get('id')!;
   }
 
   ngOnInit(): void {

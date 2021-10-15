@@ -4,7 +4,12 @@ import {
   COLLECTION_NAME,
   DOMAIN_DISPLAY_NAME,
 } from './injection-tokens';
-import { AngularFirestore, DocumentData, Query } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  CollectionReference,
+  DocumentData,
+  Query,
+} from '@angular/fire/firestore';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -48,6 +53,7 @@ import { Subscription } from 'rxjs';
                 mat-button
                 class="bg-blue-500  rounded-lg text-white"
                 appFormCreateTrigger
+                [parentData]="parentData"
               >
                 Add {{ domainName }}
               </button>
@@ -80,14 +86,16 @@ import { Subscription } from 'rxjs';
   `,
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent
-  implements OnInit, AfterContentInit, AfterViewInit, OnDestroy
-{
+export class TableComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input() columns: string[] = [];
 
   @Input() orderByField: string = 'createdAt';
 
   @Input() orderByDirection: 'desc' | 'asc' = 'desc';
+
+  @Input() parentData: any = null;
+
+  @Input() parentId: string = '';
 
   @Input() sort: MatSort | null = null;
 
@@ -103,6 +111,11 @@ export class TableComponent
 
   items: Observable<any[]> = new Observable();
 
+  @Input() filterByParent!: (
+    ref: CollectionReference<DocumentData>,
+    parentId: string
+  ) => Query<DocumentData>;
+
   constructor(
     private firestore: AngularFirestore,
     @Inject(COLLECTION_NAME) private collectionName: string,
@@ -112,9 +125,6 @@ export class TableComponent
     @Inject(DOMAIN_DISPLAY_NAME) public domainName: string
   ) {}
 
-  ngAfterViewInit(): void {
-    // this.datasource.sort = this.sort;
-  }
   ngAfterContentInit(): void {
     this.columnDefs.forEach((columnDef) => this.table.addColumnDef(columnDef));
   }
@@ -128,17 +138,19 @@ export class TableComponent
   }
 
   onFilter(event: KeyboardEvent) {
-
     this.datasource.filter = (event.target as HTMLInputElement).value;
   }
 
   loadData() {
     this.items = this.firestore
       .collection(this.collectionName, (ref) => {
-        const query: Query<DocumentData> = ref.orderBy(
-          this.orderByField,
-          this.orderByDirection
-        );
+        let query: Query<DocumentData> = ref;
+
+        if (this.filterByParent != null) {
+          query = this.filterByParent(ref, this.parentId);
+        }
+
+        query = query.orderBy(this.orderByField, this.orderByDirection);
 
         return query;
       })

@@ -2,8 +2,10 @@ import { ENGAGEMENT_TYPE } from './../common/collection-names';
 import { EngagementTypeItem } from './../engagement-type/engagement-type-item.component';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Patient } from '../patient/patient-table.component';
 
 @Component({
   selector: 'app-engagement-form',
@@ -91,6 +93,7 @@ export class EngagementFormComponent implements OnInit, OnDestroy {
     story: ['', Validators.required],
     engagementDate: [new Date(Date.now()), Validators.required],
     engagementType: ['', Validators.required],
+    patient: [this.parentData],
   });
 
   engagementTypes: EngagementTypeItem[] = [];
@@ -99,7 +102,9 @@ export class EngagementFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+
+    @Inject(MAT_DIALOG_DATA) private parentData: Patient
   ) {}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
