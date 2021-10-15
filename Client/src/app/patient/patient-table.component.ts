@@ -94,8 +94,8 @@ export class PatientTableComponent {
     'birthDate',
     'civilStatus',
     'sex',
-    'options',
     'createdAt',
+    'options',
   ];
 }
 

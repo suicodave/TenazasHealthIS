@@ -34,14 +34,24 @@ import { Subscription } from 'rxjs';
       <mat-card class="rounded-t-xl mat-elevation-z0 ">
         <div class="flex justify-between items-center">
           <div class="text-gray-600 text-lg">{{ displayName }}</div>
-          <div class="controls ">
-            <button
-              mat-button
-              class="bg-blue-500  rounded-lg text-white"
-              appFormCreateTrigger
-            >
-              Add {{ domainName }}
-            </button>
+          <div
+            class="controls  grid grid-cols-4 gap-8 justify-between items-center "
+          >
+            <input
+              matInput
+              placeholder="Search"
+              class=" border border-solid border-gray-300 col-span-3 p-2 rounded-lg"
+              (keyup)="onFilter($event)"
+            />
+            <div class="flex justify-end">
+              <button
+                mat-button
+                class="bg-blue-500  rounded-lg text-white"
+                appFormCreateTrigger
+              >
+                Add {{ domainName }}
+              </button>
+            </div>
           </div>
         </div>
       </mat-card>
@@ -115,6 +125,11 @@ export class TableComponent
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  onFilter(event: KeyboardEvent) {
+
+    this.datasource.filter = (event.target as HTMLInputElement).value;
   }
 
   loadData() {
