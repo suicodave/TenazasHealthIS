@@ -4,7 +4,7 @@ import {
   COLLECTION_NAME,
   DOMAIN_DISPLAY_NAME,
 } from './injection-tokens';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentData, Query } from '@angular/fire/firestore';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -75,7 +75,7 @@ export class TableComponent
 {
   @Input() columns: string[] = [];
 
-  @Input() orderByField: string | undefined = undefined;
+  @Input() orderByField: string = 'createdAt';
 
   @Input() orderByDirection: 'desc' | 'asc' = 'desc';
 
@@ -91,15 +91,7 @@ export class TableComponent
 
   subscription: Subscription = new Subscription();
 
-  items: Observable<any[]> = this.firestore
-    .collection(this.collectionName, (ref) => {
-      if (this.orderByField) {
-        ref.orderBy(this.orderByField, this.orderByDirection);
-      }
-
-      return ref;
-    })
-    .valueChanges({ idField: 'id' });
+  items: Observable<any[]> = new Observable();
 
   constructor(
     private firestore: AngularFirestore,
@@ -118,14 +110,28 @@ export class TableComponent
   }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  loadData() {
+    this.items = this.firestore
+      .collection(this.collectionName, (ref) => {
+        const query: Query<DocumentData> = ref.orderBy(
+          this.orderByField,
+          this.orderByDirection
+        );
+
+        return query;
+      })
+      .valueChanges({ idField: 'id' });
     this.subscription = this.items.subscribe((x) => {
       this.datasource = new MatTableDataSource(x);
       this.datasource.paginator = this.paginator;
       this.datasource.sort = this.sort;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
