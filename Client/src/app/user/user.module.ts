@@ -13,6 +13,7 @@ import { UserTableComponent } from './user-table.component';
 import { COLLECTION_DISPLAY_NAME } from '../common/injection-tokens';
 import { SharedModule } from '../common/shared.module';
 import { UserFormComponent } from './user-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -23,7 +24,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [UserTableComponent, UserPageComponent, UserFormComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    ReactiveFormsModule,
+  ],
   exports: [UserTableComponent, UserPageComponent, UserFormComponent],
   providers: [
     {
