@@ -1,6 +1,13 @@
 import { DOMAIN_DISPLAY_NAME, COLLECTION_NAME } from './../injection-tokens';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialogRef } from '@angular/material/dialog';
 import {
@@ -20,8 +27,9 @@ import {
         <button
           mat-button
           type="submit"
-          class="rounded-lg text-white bg-blue-500"
-          [disabled]="isSaving"
+          color="primary"
+          mat-flat-button
+          [disabled]="!isFormValid || isSaving"
         >
           Save
         </button>
@@ -42,6 +50,11 @@ export class FormComponent implements OnInit {
   collectionRef!: AngularFirestoreCollection<any>;
   userId!: string;
   isSaving: boolean = false;
+  @Input() formValue: any = (form: FormGroup) => {
+    return form.value;
+  };
+
+  @Output() added = new EventEmitter<any>();
 
   constructor(
     @Inject(DOMAIN_DISPLAY_NAME) public displayName: string,
@@ -65,11 +78,11 @@ export class FormComponent implements OnInit {
   }
 
   save() {
-    const value: any = this.form.value;
-
     if (!this.form.valid) {
       return;
     }
+
+    const value: any = this.formValue(this.form);
 
     value.createdBy = this.userId;
 
@@ -81,6 +94,16 @@ export class FormComponent implements OnInit {
 
     this.isSaving = false;
 
+    this.added.emit(value);
+
+    this.dialogRef.close();
+  }
+
+  get isFormValid(): boolean {
+    return this.form.valid;
+  }
+
+  close() {
     this.dialogRef.close();
   }
 }
