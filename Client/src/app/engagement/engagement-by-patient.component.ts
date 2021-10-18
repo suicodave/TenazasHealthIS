@@ -63,6 +63,13 @@ import { Patient } from '../patient/patient-table.component';
         <td mat-cell *matCellDef="let element">{{ element.height }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="engagementDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Engagement Date
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.engagementDate.toDate() | date:'mediumDate' }}</td>
+      </ng-container>
+
       <ng-container matColumnDef="weight">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Weight</th>
         <td mat-cell *matCellDef="let element">
@@ -120,6 +127,7 @@ export class EngagementByPatientComponent implements OnInit {
     'bloodPressure',
     'temperature',
     'engagementType',
+    'engagementDate',
     'height',
     'weight',
     'createdAt',
