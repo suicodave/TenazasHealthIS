@@ -66,6 +66,10 @@ const routes: Routes = [
       authGuardPipe: redirectUnauthorizedToLogin,
     },
   },
+  {
+    path:'Engagements',
+    loadChildren:()=>import('./engagement/engagement.module').then(m=>m.EngagementModule)
+  }
 ];
 
 @NgModule({

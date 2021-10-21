@@ -29,6 +29,10 @@ export class GalleryGridComponent implements OnInit {
       name: 'Roles',
       path: './Roles',
     },
+    {
+      name: 'Engagements',
+      path: './Engagements',
+    },
   ];
 
   constructor() {}
