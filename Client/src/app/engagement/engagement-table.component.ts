@@ -3,7 +3,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-engagement-table',
   template: `
-    <app-table [columns]="columns" matSort #matSort="matSort" [sort]="matSort">
+    <app-table
+      [columns]="columns"
+      matSort
+      #matSort="matSort"
+      [sort]="matSort"
+      [readonly]="true"
+    >
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>

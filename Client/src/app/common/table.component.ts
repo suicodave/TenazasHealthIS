@@ -54,6 +54,7 @@ import { Subscription } from 'rxjs';
                 class="bg-blue-500  rounded-lg text-white"
                 appFormCreateTrigger
                 [parentData]="parentData"
+                *ngIf="!readonly"
               >
                 Add {{ domainName }}
               </button>
@@ -88,6 +89,8 @@ import { Subscription } from 'rxjs';
 })
 export class TableComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input() columns: string[] = [];
+
+  @Input() readonly: boolean = false;
 
   @Input() orderByField: string = 'createdAt';
 
