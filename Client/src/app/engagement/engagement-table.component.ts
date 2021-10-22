@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ENGAGEMENT } from '../common/collection-names';
+import {
+  COLLECTION_DISPLAY_NAME,
+  COLLECTION_NAME,
+  DIALOG_COMPONENT,
+  DOMAIN_DISPLAY_NAME,
+} from '../common/injection-tokens';
+import { EngagementFormComponent } from './engagement-form.component';
 
 @Component({
   selector: 'app-engagement-table',
@@ -77,6 +85,24 @@ import { Component, OnInit } from '@angular/core';
       </ng-container>
     </app-table>
   `,
+  providers: [
+    {
+      provide: COLLECTION_NAME,
+      useValue: ENGAGEMENT,
+    },
+    {
+      provide: DIALOG_COMPONENT,
+      useValue: EngagementFormComponent,
+    },
+    {
+      provide: DOMAIN_DISPLAY_NAME,
+      useValue: 'Engagement',
+    },
+    {
+      provide: COLLECTION_DISPLAY_NAME,
+      useValue: ENGAGEMENT,
+    },
+  ],
 })
 export class EngagementTableComponent implements OnInit {
   columns = [
