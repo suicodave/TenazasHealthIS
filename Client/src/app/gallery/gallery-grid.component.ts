@@ -33,6 +33,10 @@ export class GalleryGridComponent implements OnInit {
       name: 'Engagements',
       path: './Engagements',
     },
+    {
+      name: 'Reports',
+      path: './Reports',
+    },
   ];
 
   constructor() {}
