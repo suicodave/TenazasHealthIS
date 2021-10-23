@@ -70,6 +70,13 @@ import { EngagementFormComponent } from './engagement-form.component';
         <td mat-cell *matCellDef="let element">{{ element.temperature }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="engagementDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Engagement Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.engagementDate.toDate() | date }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="story">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Story</th>
         <td mat-cell *matCellDef="let element">
@@ -112,6 +119,7 @@ export class EngagementTableComponent implements OnInit {
     'bloodPressure',
     'weight',
     'height',
+    'engagementDate',
     'story',
     'temperature',
     'createdAt',
