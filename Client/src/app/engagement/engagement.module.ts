@@ -17,12 +17,7 @@ import { EngagementFormComponent } from './engagement-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EngagementTableComponent } from './engagement-table.component';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: EngagementPageComponent,
-  },
-];
+
 
 @NgModule({
   declarations: [
@@ -36,31 +31,13 @@ const routes: Routes = [
     MaterialModule,
     SharedModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes),
+
   ],
   exports: [
     EngagementByPatientComponent,
     EngagementFormComponent,
     EngagementTableComponent,
     EngagementPageComponent,
-  ],
-  providers: [
-    {
-      provide: COLLECTION_NAME,
-      useValue: ENGAGEMENT,
-    },
-    {
-      provide: DIALOG_COMPONENT,
-      useValue: EngagementFormComponent,
-    },
-    {
-      provide: DOMAIN_DISPLAY_NAME,
-      useValue: 'Engagement',
-    },
-    {
-      provide: COLLECTION_DISPLAY_NAME,
-      useValue: ENGAGEMENT,
-    },
   ],
 })
 export class EngagementModule {}

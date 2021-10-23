@@ -40,10 +40,10 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    EngagementModule,
     SharedModule,
     ReactiveFormsModule,
     MaterialModule,
-    EngagementModule,
   ],
   exports: [
     PatientPageComponent,
