@@ -1,4 +1,9 @@
-import { COLLECTION_NAME } from './../common/injection-tokens';
+import {
+  COLLECTION_DISPLAY_NAME,
+  COLLECTION_NAME,
+  DIALOG_COMPONENT,
+  DOMAIN_DISPLAY_NAME,
+} from './../common/injection-tokens';
 import { AuditableModel } from './../common/dto';
 import { Component, Inject, OnInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
@@ -9,6 +14,8 @@ import {
 } from '@angular/fire/firestore';
 import { CollectionViewer } from '@angular/cdk/collections';
 import { Timestamp } from '@firebase/firestore-types';
+import { PATIENT } from '../common/collection-names';
+import { PatientFormComponent } from './patient-form.component';
 
 @Component({
   selector: 'app-patient-table',
@@ -83,6 +90,24 @@ import { Timestamp } from '@firebase/firestore-types';
       </ng-container>
     </app-table>
   `,
+  providers: [
+    {
+      provide: COLLECTION_NAME,
+      useValue: PATIENT,
+    },
+    {
+      provide: DIALOG_COMPONENT,
+      useValue: PatientFormComponent,
+    },
+    {
+      provide: DOMAIN_DISPLAY_NAME,
+      useValue: 'Patient',
+    },
+    {
+      provide: COLLECTION_DISPLAY_NAME,
+      useValue: PATIENT,
+    },
+  ],
 })
 export class PatientTableComponent {
   displayedColumns = [

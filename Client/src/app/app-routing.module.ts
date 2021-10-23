@@ -67,9 +67,17 @@ const routes: Routes = [
     },
   },
   {
-    path:'Engagements',
-    loadChildren:()=>import('./engagement/engagement.module').then(m=>m.EngagementModule)
-  }
+    path: 'Engagements',
+    loadChildren: () =>
+      import('./engagement/engagement-routing.module').then(
+        (m) => m.EngagementRoutingModule
+      ),
+  },
+  {
+    path: 'Reports',
+    loadChildren: () =>
+      import('./report/report.module').then((m) => m.ReportModule),
+  },
 ];
 
 @NgModule({
