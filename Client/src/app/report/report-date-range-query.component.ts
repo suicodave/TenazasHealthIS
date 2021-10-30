@@ -1,7 +1,7 @@
-import { Timestamp } from '@firebase/firestore-types';
+import * as collection from 'collect.js';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Engagement } from '../engagement/engagement-dto';
 import { ENGAGEMENT } from '../common/collection-names';
 
@@ -27,7 +27,9 @@ import { ENGAGEMENT } from '../common/collection-names';
       </mat-form-field>
 
       <div class="flex justify-end">
-        <button mat-raised-button color="primary">Generate</button>
+        <button mat-raised-button color="primary" [disabled]="isLoading">
+          Generate
+        </button>
       </div>
     </form>
   `,
@@ -38,7 +40,9 @@ export class ReportDateRangeQueryComponent implements OnInit {
     toDate: ['', Validators.required],
   });
 
-  data: Engagement[] = [];
+  isLoading: boolean = false;
+
+  @Output() data: EventEmitter<ReportQuery> = new EventEmitter();
 
   constructor(
     private firestore: AngularFirestore,
@@ -51,6 +55,8 @@ export class ReportDateRangeQueryComponent implements OnInit {
   getData() {
     const dates = this.form.value;
 
+    this.isLoading = true;
+
     this.firestore
       .collection<Engagement>(ENGAGEMENT, (ref) => {
         return ref
@@ -58,12 +64,22 @@ export class ReportDateRangeQueryComponent implements OnInit {
           .where('engagementDate', '<', dates.toDate);
       })
       .valueChanges({ idField: 'id' })
-      .subscribe((x) => {
-        const groupedArray = x.map((x) => {
-          return x.engagementDate.toDate().getDate();
-        });
+      .subscribe(
+        (x) => {
+          dates.data = x;
 
-        console.log(groupedArray);
-      });
+          this.data.emit(dates);
+
+          this.isLoading = false;
+        },
+        (x) => (this.isLoading = false)
+      );
   }
+}
+
+export interface ReportQuery {
+  fromDate: Date;
+  toDate: Date;
+
+  data: Engagement[];
 }
