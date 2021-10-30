@@ -1,3 +1,4 @@
+import { ChartsModule } from 'ng2-charts';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -7,6 +8,7 @@ import { ReportDateRangeQueryComponent } from './report-date-range-query.compone
 import { SharedModule } from '../common/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
+import { MonthlyChartComponent } from './monthly-chart.component';
 
 const routes: Routes = [
   {
@@ -16,13 +18,22 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ReportPageComponent, ReportDateRangeQueryComponent],
+  declarations: [
+    ReportPageComponent,
+    ReportDateRangeQueryComponent,
+    MonthlyChartComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
     ReactiveFormsModule,
+    ChartsModule,
   ],
-  exports: [ReportPageComponent, ReportDateRangeQueryComponent],
+  exports: [
+    ReportPageComponent,
+    ReportDateRangeQueryComponent,
+    MonthlyChartComponent,
+  ],
 })
 export class ReportModule {}
