@@ -10,8 +10,7 @@ import { ReportService } from './report.service';
     <div class="w-full min-h-full bg-gray-200 relative pt-8">
       <mat-tab-group>
         <mat-tab label="Monthly Range Report">
-          <h1 class="text-center text-gray-600 relative my-8">Reports</h1>
-          <div class="flex justify-center ">
+          <div class="flex justify-center mt-8">
             <app-report-date-range-query
               (data)="onDataChange($event)"
             ></app-report-date-range-query>
