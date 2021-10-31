@@ -8,7 +8,7 @@ import { ReportDateRangeQueryComponent } from './report-date-range-query.compone
 import { SharedModule } from '../common/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
-import { MonthlyChartComponent } from './monthly-chart.component';
+import { MonthRangeChartComponent } from './month-range-chart.component';
 
 const routes: Routes = [
   {
@@ -21,7 +21,7 @@ const routes: Routes = [
   declarations: [
     ReportPageComponent,
     ReportDateRangeQueryComponent,
-    MonthlyChartComponent,
+    MonthRangeChartComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +33,7 @@ const routes: Routes = [
   exports: [
     ReportPageComponent,
     ReportDateRangeQueryComponent,
-    MonthlyChartComponent,
+    MonthRangeChartComponent,
   ],
 })
 export class ReportModule {}

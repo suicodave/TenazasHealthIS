@@ -1,6 +1,6 @@
 import { ChartDataSets } from 'chart.js';
 import { ReportQuery } from './report-date-range-query.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Engagement } from '../engagement/engagement-dto';
 import { ReportService } from './report.service';
 
@@ -16,11 +16,11 @@ import { ReportService } from './report.service';
       </div>
 
       <div class="w-full grid grid-cols-4 mt-8">
-        <mat-card class="col-span-2 col-start-2">
-          <app-monthly-chart
+        <mat-card class="col-span-2 col-start-2" *ngIf="labels.length > 0">
+          <app-month-range-chart
             [data]="dataSets"
             [labels]="labels"
-          ></app-monthly-chart>
+          ></app-month-range-chart>
         </mat-card>
       </div>
     </div>
@@ -30,6 +30,8 @@ export class ReportPageComponent implements OnInit {
   data: Engagement[] = [];
 
   dataSets: ChartDataSets[] = [];
+
+
 
   labels: string[] = [];
 

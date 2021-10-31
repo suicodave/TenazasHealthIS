@@ -4,7 +4,7 @@ import { Color, Label } from 'ng2-charts';
 import { Engagement } from '../engagement/engagement-dto';
 
 @Component({
-  selector: 'app-monthly-chart',
+  selector: 'app-month-range-chart',
   template: `
     <div class="block">
       <canvas
@@ -20,10 +20,14 @@ import { Engagement } from '../engagement/engagement-dto';
     </div>
   `,
 })
-export class MonthlyChartComponent implements OnInit {
+export class MonthRangeChartComponent implements OnInit {
   @Input() data: ChartDataSets[] = [];
 
   @Input() labels: Label[] = [];
+
+  @Input() fromDate!: Date;
+
+  @Input() toDate!: Date;
 
   lineChartOptions: ChartOptions = {
     responsive: true,
@@ -35,8 +39,4 @@ export class MonthlyChartComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  get monthsFromData(): string[] {
-    return [''];
-  }
 }
