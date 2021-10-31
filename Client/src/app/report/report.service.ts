@@ -11,27 +11,27 @@ import { from } from 'rxjs';
 export class ReportService {
   constructor() {}
 
-  monthNames: string[] = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  get monthNames(): string[] {
+    return [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+  }
 
   getDatasets(query: ReportQuery): ChartDataSets[] {
     const dataSets: ChartDataSets[] = [];
 
-    const dataByEngagementType = this.groupEngagementTypes(query.data);
-
-    const engagementTypes = Object.keys(dataByEngagementType);
+    const engagementTypes = this.extractEngagementTypeNames(query.data);
 
     const affectedMonths = this.getAffectedMonths(query.fromDate, query.toDate);
 
@@ -58,11 +58,13 @@ export class ReportService {
     return dataSets;
   }
 
-  groupEngagementTypes(engagements: Engagement[]) {
-    return collection
-      .collect(engagements)
-      .groupBy((item) => item.engagementType.name)
-      .all();
+  extractEngagementTypeNames(engagements: Engagement[]): string[] {
+    return Object.keys(
+      collection
+        .collect(engagements)
+        .groupBy((item) => item.engagementType.name)
+        .all()
+    );
   }
 
   getAffectedMonths(fromDate: Date, toDate: Date): number[] {
@@ -81,5 +83,21 @@ export class ReportService {
     const months = this.getAffectedMonths(fromDate, toDate);
 
     return months.map((x) => this.monthNames[x]);
+  }
+
+  generateEngagementTypeDataSets(engagements: Engagement[]): number[] {
+    const names: string[] = this.extractEngagementTypeNames(engagements);
+
+    const dataSets: number[] = [];
+
+    names.forEach((name: string) => {
+      const counts = engagements.filter(
+        (y) => y.engagementType.name == name
+      ).length;
+
+      dataSets.push(counts);
+    });
+
+    return dataSets;
   }
 }
