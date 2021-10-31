@@ -8,21 +8,30 @@ import { ReportService } from './report.service';
   selector: 'app-report-page',
   template: `
     <div class="w-full min-h-full bg-gray-200 relative pt-8">
-      <h1 class="text-center text-gray-600 relative my-8">Reports</h1>
-      <div class="flex justify-center">
-        <app-report-date-range-query
-          (data)="onDataChange($event)"
-        ></app-report-date-range-query>
-      </div>
+      <mat-tab-group>
+        <mat-tab label="Monthly Range Report">
+          <h1 class="text-center text-gray-600 relative my-8">Reports</h1>
+          <div class="flex justify-center ">
+            <app-report-date-range-query
+              (data)="onDataChange($event)"
+            ></app-report-date-range-query>
+          </div>
 
-      <div class="w-full grid grid-cols-4 mt-8">
-        <mat-card class="col-span-2 col-start-2" *ngIf="labels.length > 0">
-          <app-month-range-chart
-            [data]="dataSets"
-            [labels]="labels"
-          ></app-month-range-chart>
-        </mat-card>
-      </div>
+          <div class="w-full grid grid-cols-4 my-8">
+            <mat-card class="col-span-2 col-start-2" *ngIf="labels.length > 0">
+              <app-month-range-chart
+                [data]="dataSets"
+                [labels]="labels"
+              ></app-month-range-chart>
+            </mat-card>
+          </div>
+        </mat-tab>
+        <mat-tab label="Monthly  Report">
+          <div class="w-full mt-8">
+            <app-month-report></app-month-report>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   `,
 })
@@ -30,8 +39,6 @@ export class ReportPageComponent implements OnInit {
   data: Engagement[] = [];
 
   dataSets: ChartDataSets[] = [];
-
-
 
   labels: string[] = [];
 

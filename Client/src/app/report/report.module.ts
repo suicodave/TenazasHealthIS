@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 import { ReportPageComponent } from './report-page.component';
 import { ReportDateRangeQueryComponent } from './report-date-range-query.component';
 import { SharedModule } from '../common/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { MonthRangeChartComponent } from './month-range-chart.component';
+import { MonthReportComponent } from './month-report.component';
 
 const routes: Routes = [
   {
@@ -22,18 +23,21 @@ const routes: Routes = [
     ReportPageComponent,
     ReportDateRangeQueryComponent,
     MonthRangeChartComponent,
+    MonthReportComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
     ReactiveFormsModule,
+    FormsModule,
     ChartsModule,
   ],
   exports: [
     ReportPageComponent,
     ReportDateRangeQueryComponent,
     MonthRangeChartComponent,
+    MonthReportComponent,
   ],
 })
 export class ReportModule {}
