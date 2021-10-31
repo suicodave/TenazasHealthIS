@@ -50,10 +50,23 @@ export class ReportDateRangeQueryComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {}
 
+  get dates(): any {
+    const from = new Date(this.form.value.fromDate);
+
+    const to = new Date(this.form.value.toDate);
+
+    to.setHours(23, 59, 59);
+
+    return {
+      fromDate: from,
+      toDate: to,
+    };
+  }
+
   ngOnInit(): void {}
 
   getData() {
-    const dates = this.form.value;
+    const dates = this.dates;
 
     this.isLoading = true;
 
