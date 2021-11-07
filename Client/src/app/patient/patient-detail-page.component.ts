@@ -8,7 +8,9 @@ import { Patient } from './patient-table.component';
   selector: 'app-patient-detail-page',
   template: `
     <div class="w-full bg-gray-200 min-h-full ">
-      <div class="p-4 pt-8 col-span-2 flex items-center flex-col">
+      <div
+        class="p-4 pt-8 col-span-2 flex items-center flex-col relative box-border"
+      >
         <div class="block w-48 h-48 bg-gray-800 rounded-full mb-4"></div>
 
         <p class="mb-0 text-base text-gray-700">
@@ -16,6 +18,17 @@ import { Patient } from './patient-table.component';
           {{ data?.lastName | titlecase }}
         </p>
         <p class="text-xs">ID: {{ id }}</p>
+
+        <button mat-icon-button class="absolute top-8 right-4" [matMenuTriggerFor]="menu">
+          <mat-icon class="mat-18" >
+            more_vert
+          </mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item appFormUpdateTrigger [data]="data" >Edit Info</button>
+        </mat-menu>
+
       </div>
 
       <div class="p-8 mb-8 col-span-6">
@@ -71,8 +84,7 @@ export class PatientDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
     @Inject(COLLECTION_NAME) private collectionName: string
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadData();

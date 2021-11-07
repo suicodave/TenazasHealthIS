@@ -5,6 +5,7 @@ import {
   COLLECTION_NAME,
   DIALOG_COMPONENT,
   DOMAIN_DISPLAY_NAME,
+  UPDATE_DIALOG_COMPONENT,
 } from './../common/injection-tokens';
 import { MaterialModule } from './../material/material.module';
 import { PatientPageComponent } from './patient-page.component';
@@ -68,6 +69,10 @@ const routes: Routes = [
     {
       provide: COLLECTION_DISPLAY_NAME,
       useValue: PATIENT,
+    },
+    {
+      provide: UPDATE_DIALOG_COMPONENT,
+      useValue: PatientFormComponent,
     },
   ],
 })
