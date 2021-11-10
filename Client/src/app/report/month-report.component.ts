@@ -14,7 +14,7 @@ import 'chartjs-plugin-labels';
 @Component({
   selector: 'app-month-report',
   template: `
-    <div class="flex justify-center w-full mb-16">
+    <div class="flex justify-center w-full mb-12">
       <div>
         <mat-form-field class="w-full ">
           <mat-label>Month</mat-label>

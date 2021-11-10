@@ -7,8 +7,9 @@ import { ReportService } from './report.service';
 @Component({
   selector: 'app-report-page',
   template: `
-    <div class="w-full min-h-full bg-gray-200 relative pt-8">
-      <mat-tab-group>
+    <div class="w-full min-h-full bg-gray-200 relative ">
+      <app-toolbar></app-toolbar>
+      <mat-tab-group class="my-8 mx-8">
         <mat-tab label="Monthly Range Report">
           <div class="flex justify-center mt-8">
             <app-report-date-range-query

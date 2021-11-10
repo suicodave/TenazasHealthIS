@@ -9,6 +9,7 @@ import {
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { SharedModule } from '../common/shared.module';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
@@ -16,7 +17,6 @@ const routes: Routes = [
   {
     path: '',
     component: GalleryGridComponent,
-
   },
 ];
 
@@ -27,6 +27,7 @@ const routes: Routes = [
     AngularFireAuthModule,
     MaterialModule,
     RouterModule.forChild(routes),
+    SharedModule,
   ],
   exports: [GalleryGridComponent, GalleryGridItemComponent],
 })

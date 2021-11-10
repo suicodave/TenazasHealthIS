@@ -19,7 +19,7 @@ import { Patient } from './patient-table.component';
         </p>
         <p class="text-xs">ID: {{ id }}</p>
 
-        <button mat-icon-button class="absolute top-8 right-4" [matMenuTriggerFor]="menu">
+        <button mat-icon-button class="absolute top-8 right-4" [matMenuTriggerFor]="menu" color="primary">
           <mat-icon class="mat-18" >
             more_vert
           </mat-icon>
