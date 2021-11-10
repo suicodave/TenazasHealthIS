@@ -19,7 +19,9 @@ import {
   selector: 'app-form',
   template: `
     <form [formGroup]="form" (ngSubmit)="save()">
-      <h2 mat-dialog-title class="text-gray-600">New {{ displayName }}</h2>
+      <h2 mat-dialog-title class="text-gray-600">
+        {{ titlePrefix }} {{ displayName }}
+      </h2>
       <mat-dialog-content>
         <ng-content></ng-content>
       </mat-dialog-content>
@@ -54,6 +56,8 @@ export class FormComponent implements OnInit {
     return form.value;
   };
 
+  @Input() id: string | undefined = undefined;
+
   @Output() added = new EventEmitter<any>();
 
   constructor(
@@ -82,15 +86,9 @@ export class FormComponent implements OnInit {
       return;
     }
 
-    const value: any = this.formValue(this.form);
-
-    value.createdBy = this.userId;
-
-    value.createdAt = new Date(Date.now());
-
     this.isSaving = true;
 
-    this.collectionRef.add(value);
+    const value = this.resolveAction();
 
     this.isSaving = false;
 
@@ -99,8 +97,42 @@ export class FormComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  resolveAction() {
+    if (this.isEditingMode) {
+      return this.update(this.form);
+    }
+
+    return this.create(this.form);
+  }
+
+  create(form: FormGroup) {
+    const value: any = this.formValue(this.form);
+
+    value.createdBy = this.userId;
+
+    value.createdAt = new Date(Date.now());
+
+    this.collectionRef.add(value);
+
+    return value;
+  }
+
+  update(form: FormGroup) {
+    const value: any = this.formValue(this.form);
+
+    this.collectionRef.doc(this.id).update(value);
+  }
+
   get isFormValid(): boolean {
     return this.form.valid;
+  }
+
+  get isEditingMode() {
+    return this.id != undefined;
+  }
+
+  get titlePrefix() {
+    return this.isEditingMode ? 'Edit' : 'New';
   }
 
   close() {

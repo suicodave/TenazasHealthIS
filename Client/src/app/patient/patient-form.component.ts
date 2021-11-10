@@ -1,10 +1,12 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Patient } from './patient-table.component';
 
 @Component({
   selector: 'app-patient-form',
   template: `
-    <app-form [form]="form" [formGroup]="form">
+    <app-form [form]="form" [formGroup]="form" [id]="data?.id">
       <div class="grid grid-cols-3 gap-4">
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>First Name</mat-label>
@@ -58,22 +60,24 @@ import { Component, OnInit } from '@angular/core';
           </mat-select>
         </mat-form-field>
       </div>
-
     </app-form>
   `,
 })
 export class PatientFormComponent implements OnInit {
   form: FormGroup = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    middleName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    sex: ['', Validators.required],
-    civilStatus: ['', Validators.required],
-    birthDate: ['', Validators.required],
-    address: ['', Validators.required],
+    firstName: [this.data?.firstName, Validators.required],
+    middleName: [this.data?.middleName, Validators.required],
+    lastName: [this.data?.lastName, Validators.required],
+    sex: [this.data?.sex, Validators.required],
+    civilStatus: [this.data?.civilStatus, Validators.required],
+    birthDate: [this.data?.birthDate.toDate(), Validators.required],
+    address: [this.data?.address, Validators.required],
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: Patient
+  ) {}
 
   ngOnInit(): void {}
 

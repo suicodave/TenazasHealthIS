@@ -1,3 +1,4 @@
+import { Patient } from './../patient/patient-table.component';
 import { EngagementTypeItem } from './../engagement-type/engagement-type-item.component';
 import { Timestamp } from '@firebase/firestore-types';
 import { AuditableModel } from './../common/dto';
@@ -16,7 +17,7 @@ export interface Engagement extends AuditableModel {
 
   engagementType: EngagementTypeItem;
 
-  patientId: string;
+  patient: Patient;
 
   story: string;
 }

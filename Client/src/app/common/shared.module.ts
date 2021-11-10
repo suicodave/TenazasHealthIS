@@ -1,3 +1,4 @@
+import { FormUpdateTriggerDirective } from './forms/form-update-trigger.directive';
 import { MaterialModule } from './../material/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,6 +16,7 @@ import { TableComponent } from './table.component';
     FormCreateTriggerDirective,
     FormComponent,
     TableComponent,
+    FormUpdateTriggerDirective,
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   exports: [
@@ -24,6 +26,7 @@ import { TableComponent } from './table.component';
     FormComponent,
     TableComponent,
     MaterialModule,
+    FormUpdateTriggerDirective,
   ],
 })
 export class SharedModule {}

@@ -12,6 +12,7 @@ import {
   COLLECTION_NAME,
   DIALOG_COMPONENT,
   DOMAIN_DISPLAY_NAME,
+  UPDATE_DIALOG_COMPONENT,
 } from '../common/injection-tokens';
 import { EngagementFormComponent } from './engagement-form.component';
 import { Patient } from '../patient/patient-table.component';
@@ -67,7 +68,9 @@ import { Patient } from '../patient/patient-table.component';
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Engagement Date
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.engagementDate.toDate() | date:'mediumDate' }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.engagementDate.toDate() | date: 'mediumDate' }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="weight">
@@ -77,10 +80,24 @@ import { Patient } from '../patient/patient-table.component';
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="story">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Story</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.story }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
         <td mat-cell *matCellDef="let element">
           {{ element.createdAt.toDate() | date }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdBy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdBy }}
         </td>
       </ng-container>
 
@@ -92,6 +109,9 @@ import { Patient } from '../patient/patient-table.component';
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+              <button mat-menu-item appFormUpdateTrigger [data]="element">
+                Edit Info
+              </button>
               <button mat-menu-item appDeleteTrigger [id]="element.id!">
                 Delete
               </button>
@@ -119,6 +139,10 @@ import { Patient } from '../patient/patient-table.component';
       provide: COLLECTION_DISPLAY_NAME,
       useValue: ENGAGEMENT,
     },
+    {
+      provide: UPDATE_DIALOG_COMPONENT,
+      useValue: EngagementFormComponent,
+    },
   ],
 })
 export class EngagementByPatientComponent implements OnInit {
@@ -130,7 +154,9 @@ export class EngagementByPatientComponent implements OnInit {
     'engagementDate',
     'height',
     'weight',
+    'story',
     'createdAt',
+    'createdBy',
     'options',
   ];
 

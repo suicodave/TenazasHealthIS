@@ -9,3 +9,7 @@ export const COLLECTION_DISPLAY_NAME = new InjectionToken<string>(
 );
 
 export const DIALOG_COMPONENT = new InjectionToken<any>('dialogComponent');
+
+export const UPDATE_DIALOG_COMPONENT = new InjectionToken<any>(
+  'updateDialogComponent'
+);
