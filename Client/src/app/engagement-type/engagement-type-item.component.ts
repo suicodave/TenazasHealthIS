@@ -28,7 +28,7 @@ import { Component, Input, OnInit } from '@angular/core';
         [id]="item.id!"
         [ngClass]="{ hidden: !showDelete }"
       >
-        <mat-icon class="text-gray-500"> delete_outline </mat-icon>
+        <mat-icon class="text-red-500"> delete_outline </mat-icon>
       </button>
     </div>
   `,

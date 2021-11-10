@@ -47,6 +47,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatSortModule,
     MatTabsModule,
+    MatToolbarModule,
   ],
   exports: [
     MatCardModule,
@@ -69,6 +70,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatSortModule,
     MatTabsModule,
+    MatToolbarModule,
   ],
   providers: [
     {

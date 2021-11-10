@@ -80,7 +80,7 @@ import { PatientFormComponent } from './patient-form.component';
           <div class="w-full flex justify-end text-gray-500">
             <a
               mat-icon-button
-              class="self-end"
+              class="self-end text-yellow-600"
               [routerLink]="['./', element.id]"
             >
               <mat-icon>launch</mat-icon>

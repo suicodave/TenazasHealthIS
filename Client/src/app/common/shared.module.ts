@@ -8,6 +8,7 @@ import { FormCreateTriggerDirective } from './forms/form-create-trigger.directiv
 import { FormComponent } from './forms/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableComponent } from './table.component';
+import { ToolbarComponent } from './toolbar.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TableComponent } from './table.component';
     FormComponent,
     TableComponent,
     FormUpdateTriggerDirective,
+    ToolbarComponent,
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   exports: [
@@ -27,6 +29,7 @@ import { TableComponent } from './table.component';
     TableComponent,
     MaterialModule,
     FormUpdateTriggerDirective,
+    ToolbarComponent,
   ],
 })
 export class SharedModule {}

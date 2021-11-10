@@ -38,7 +38,7 @@ import { Subscription } from 'rxjs';
     <mat-card class="p-0  rounded-xl">
       <mat-card class="rounded-t-xl mat-elevation-z0 ">
         <div class="flex justify-between items-center">
-          <div class="text-gray-600 text-lg">{{ displayName }}</div>
+          <div class="text-blue-600 font-medium text-lg">{{ displayName }}</div>
           <div
             class="controls  grid grid-cols-4 gap-8 justify-between items-center "
           >
@@ -50,8 +50,9 @@ import { Subscription } from 'rxjs';
             />
             <div class="flex justify-end">
               <button
-                mat-button
-                class="bg-blue-500  rounded-lg text-white"
+                mat-flat-button
+                class="rounded-lg"
+                color="primary"
                 appFormCreateTrigger
                 [parentData]="parentData"
                 *ngIf="!readonly"

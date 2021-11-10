@@ -19,7 +19,7 @@ import {
   selector: 'app-form',
   template: `
     <form [formGroup]="form" (ngSubmit)="save()">
-      <h2 mat-dialog-title class="text-gray-600">
+      <h2 mat-dialog-title class="text-blue-500">
         {{ titlePrefix }} {{ displayName }}
       </h2>
       <mat-dialog-content>

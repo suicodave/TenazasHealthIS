@@ -12,11 +12,12 @@ import {
   template: `
     <mat-card class="rounded-lg">
       <div class="flex justify-between">
-        <h1 class="text-gray-600">Engagement Types</h1>
+        <h1 class="text-blue-500">Engagement Types</h1>
         <div class="controls ">
           <button
-            mat-button
-            class="bg-blue-500  rounded-lg text-white"
+            mat-flat-button
+            color="primary"
+            class="rounded-lg text-white"
             appFormCreateTrigger
           >
             Add Type

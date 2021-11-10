@@ -5,7 +5,13 @@ import { Component, Input, OnInit } from '@angular/core';
   template: `
     <a [href]="item.path">
       <mat-card>
-        {{ item.name }}
+        <p class="text-lg text-blue-600">
+          {{ item.name }}
+        </p>
+
+        <p class="text-sm text-gray-500">
+          {{ item.description }}
+        </p>
       </mat-card>
     </a>
   `,
@@ -20,6 +26,8 @@ export class GalleryGridItemComponent implements OnInit {
 
 export interface GalleryGridItem {
   name: string;
+
+  description?: string;
 
   path: string;
 }

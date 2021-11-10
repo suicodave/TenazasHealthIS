@@ -105,7 +105,7 @@ import { Patient } from '../patient/patient-table.component';
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
           <div class="flex justify-end">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-yellow-600">
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
