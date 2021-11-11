@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
         <a href="">Tenazas Health Information System</a>
 
         <div class="controls">
-          <button mat-icon-button>
+          <button mat-icon-button appSignOut>
             <mat-icon class="mat-18">power_settings_new</mat-icon>
           </button>
         </div>

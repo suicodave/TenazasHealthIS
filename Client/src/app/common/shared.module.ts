@@ -1,3 +1,4 @@
+import { SignOutDirective } from './sign-out.directive';
 import { FormUpdateTriggerDirective } from './forms/form-update-trigger.directive';
 import { MaterialModule } from './../material/material.module';
 import { NgModule } from '@angular/core';
@@ -19,6 +20,7 @@ import { ToolbarComponent } from './toolbar.component';
     TableComponent,
     FormUpdateTriggerDirective,
     ToolbarComponent,
+    SignOutDirective,
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   exports: [
@@ -30,6 +32,7 @@ import { ToolbarComponent } from './toolbar.component';
     MaterialModule,
     FormUpdateTriggerDirective,
     ToolbarComponent,
+    SignOutDirective,
   ],
 })
 export class SharedModule {}
