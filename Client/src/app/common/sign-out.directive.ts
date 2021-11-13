@@ -10,8 +10,6 @@ export class SignOutDirective {
 
   @HostListener('click', ['$event'])
   signOut() {
-    console.log('asd');
-
     this.auth.signOut().then((x) => this.router.navigate(['login']));
   }
 }

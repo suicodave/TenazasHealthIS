@@ -8,10 +8,13 @@ import { Patient } from './patient-table.component';
   selector: 'app-patient-detail-page',
   template: `
     <div class="w-full bg-gray-200 min-h-full ">
+      <app-toolbar></app-toolbar>
       <div
         class="p-4 pt-8 col-span-2 flex items-center flex-col relative box-border"
       >
-        <div class="block w-48 h-48 bg-gray-800 rounded-full mb-4"></div>
+        <div class="block w-48 h-48 bg-gray-800 rounded-full mb-4">
+          <img [src]="data?.profileImage" />
+        </div>
 
         <p class="mb-0 text-base text-gray-700">
           {{ data?.firstName | titlecase }} {{ data?.middleName | titlecase }}
@@ -19,16 +22,23 @@ import { Patient } from './patient-table.component';
         </p>
         <p class="text-xs">ID: {{ id }}</p>
 
-        <button mat-icon-button class="absolute top-8 right-4" [matMenuTriggerFor]="menu" color="primary">
-          <mat-icon class="mat-18" >
-            more_vert
-          </mat-icon>
+        <button
+          mat-icon-button
+          class="absolute top-8 right-4"
+          [matMenuTriggerFor]="menu"
+          color="primary"
+        >
+          <mat-icon class="mat-18"> more_vert </mat-icon>
         </button>
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item appFormUpdateTrigger [data]="data" >Edit Info</button>
+          <button mat-menu-item appFormUpdateTrigger [data]="data">
+            Edit Information
+          </button>
+          <button mat-menu-item appProfileUploadTrigger [id]="data?.id">
+            Upload Profile Picture
+          </button>
         </mat-menu>
-
       </div>
 
       <div class="p-8 mb-8 col-span-6">

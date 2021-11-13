@@ -138,4 +138,6 @@ export interface Patient extends AuditableModel {
   civilStatus: string;
 
   sex: string;
+
+  profileImage?: string;
 }
