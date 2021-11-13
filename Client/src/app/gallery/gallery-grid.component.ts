@@ -34,7 +34,7 @@ export class GalleryGridComponent implements OnInit {
     {
       name: 'Roles',
       path: './Roles',
-      description: "Configure what user's can access in the system.",
+      description: "Configure what user's can do in the system.",
     },
     {
       name: 'Engagements',
