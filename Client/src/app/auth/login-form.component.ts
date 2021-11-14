@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-login-form',
   template: `
     <mat-card>
+      <h2 class="text-center mt-8 text-blue-600">Tenazas Health Information Sytem</h2>
       <form [formGroup]="form" (ngSubmit)="login()">
         <div class="inputs grid grid-cols-1 m-12 gap-4">
           <mat-form-field appearance="outline">
@@ -33,7 +34,7 @@ import { Router } from '@angular/router';
               type="submit"
               class="px-8 py-1"
             >
-              Login
+              Sign In
             </button>
           </div>
         </div>
