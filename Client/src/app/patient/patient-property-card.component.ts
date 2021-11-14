@@ -4,13 +4,13 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'app-patient-property-card',
   template: `
     <mat-card class="flex items-center gap-4" >
-      <mat-icon class="text-xl text-gray-600">{{ icon }} </mat-icon>
+      <mat-icon class="text-xl text-blue-600">{{ icon }} </mat-icon>
 
       <div class="labels">
         <p class="mb-1 text-gray-700 text-base">
           <ng-content></ng-content>
         </p>
-        <p class="mb-0 text-xs text-gray-500">{{ key }}</p>
+        <p class="mb-0 text-xs text-yellow-500">{{ key }}</p>
       </div>
     </mat-card>
   `,

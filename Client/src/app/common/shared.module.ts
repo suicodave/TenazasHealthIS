@@ -16,6 +16,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import * as Cloudinary from 'cloudinary-core';
 import { HttpClientModule } from '@angular/common/http';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
       upload_preset: 'TenazasHIS',
     }),
     HttpClientModule,
+    AvatarModule,
   ],
   exports: [
     DeleteTriggerDirective,
@@ -54,6 +56,7 @@ import { HttpClientModule } from '@angular/common/http';
     SignOutDirective,
     ProfileUploadComponent,
     ProfileUploadTriggerDirective,
+    AvatarModule
   ],
 })
 export class SharedModule {}
