@@ -12,11 +12,15 @@ import { Patient } from './patient-table.component';
       <div
         class="p-4 pt-8 col-span-2 flex items-center flex-col relative box-border"
       >
-        <div class="block w-48 h-48 bg-gray-800 rounded-full mb-4">
-          <img [src]="data?.profileImage" />
-        </div>
+        <ngx-avatar
+          [src]="data?.profileImage"
+          size="200"
+          [name]="initials"
+        ></ngx-avatar>
 
-        <p class="mb-0 text-base text-gray-700">
+
+
+        <p class="my-2 text-base text-gray-700">
           {{ data?.firstName | titlecase }} {{ data?.middleName | titlecase }}
           {{ data?.lastName | titlecase }}
         </p>
@@ -117,5 +121,9 @@ export class PatientDetailPageComponent implements OnInit {
     const toDate = new Date(Date.now()).getFullYear();
 
     return toDate - fromDate;
+  }
+
+  get initials(): string {
+    return `${this.data?.firstName} ${this.data?.lastName}`;
   }
 }
