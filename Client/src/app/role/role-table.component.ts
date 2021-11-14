@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
     [columns]="columns"
     matSort
     #matSort="matSort"
+    [readonly]="true"
     [sort]="matSort"
   >
     <ng-container matColumnDef="id">
@@ -43,7 +44,7 @@ import { Component, OnInit } from '@angular/core';
   </app-table>`,
 })
 export class RoleTableComponent {
-  columns = ['id', 'name', 'createdAt', 'options'];
+  columns = ['id', 'name', 'createdAt'];
 }
 
 export interface Role extends AuditableModel {
