@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-login-page',
   template: `
-    <div class="bg-gray-200 w-full min-h-full flex justify-center items-center">
+    <div class="bg-gray-200 w-full min-h-full flex justify-evenly items-center">
+      <img class="w-2/4" src="assets/authlanding.svg" alt="" />
       <div class="w-3/12">
         <app-login-form> </app-login-form>
       </div>
