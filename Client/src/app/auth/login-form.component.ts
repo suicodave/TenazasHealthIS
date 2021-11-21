@@ -8,7 +8,9 @@ import { Router } from '@angular/router';
   selector: 'app-login-form',
   template: `
     <mat-card>
-      <h2 class="text-center mt-8 text-blue-600">Tenazas Health Information Sytem</h2>
+      <h2 class="text-center mt-8 text-blue-600">
+        Tenazas Health Information Sytem
+      </h2>
       <form [formGroup]="form" (ngSubmit)="login()">
         <div class="inputs grid grid-cols-1 m-12 gap-4">
           <mat-form-field appearance="outline">
@@ -26,7 +28,7 @@ import { Router } from '@angular/router';
             />
           </mat-form-field>
 
-          <div class="flex justify-center">
+          <div class="flex justify-between items-center">
             <button
               mat-raised-button
               color="primary"
@@ -36,6 +38,8 @@ import { Router } from '@angular/router';
             >
               Sign In
             </button>
+
+            <a href="./auth/forgot-password">Reset Password</a>
           </div>
         </div>
       </form>

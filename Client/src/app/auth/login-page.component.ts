@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <div class="bg-gray-200 w-full min-h-full flex justify-evenly items-center">
       <img class="w-2/4" src="assets/authlanding.svg" alt="" />
-      <div class="w-3/12">
+      <div class="w-4/12">
         <app-login-form> </app-login-form>
       </div>
     </div>

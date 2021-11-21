@@ -9,7 +9,7 @@ import {
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['auth']);
 const redirectLoggedInToItems = () => redirectLoggedInTo(['']);
 
 const routes: Routes = [
@@ -23,7 +23,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'login',
+    path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
     data: {
       authGuardPipe: redirectLoggedInToItems,

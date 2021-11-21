@@ -7,7 +7,7 @@ import { DeleteTriggerDirective } from './delete/delete-trigger.directive';
 import { DeleteDialogComponent } from './delete/delete-dialog.component';
 import { FormCreateTriggerDirective } from './forms/form-create-trigger.directive';
 import { FormComponent } from './forms/form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { TableComponent } from './table.component';
 import { ToolbarComponent } from './toolbar.component';
 import { ProfileUploadComponent } from './profile-upload.component';
@@ -36,6 +36,7 @@ import { AvatarModule } from 'ngx-avatar';
     MaterialModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
+    FormsModule,
     CloudinaryModule.forRoot(Cloudinary, {
       cloud_name: 'hw4adyatz',
       secure: true,
@@ -56,7 +57,8 @@ import { AvatarModule } from 'ngx-avatar';
     SignOutDirective,
     ProfileUploadComponent,
     ProfileUploadTriggerDirective,
-    AvatarModule
+    AvatarModule,
+    FormsModule
   ],
 })
 export class SharedModule {}

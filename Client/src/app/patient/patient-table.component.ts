@@ -31,45 +31,52 @@ import { PatientFormComponent } from './patient-form.component';
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
       <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">First Name</th>
+        <td mat-cell *matCellDef="let element" class="p-2">{{ element.firstName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="middleName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Middle Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.middleName }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Middle Name</th>
+        <td mat-cell *matCellDef="let element" class="p-2">{{ element.middleName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Last Name</th>
+        <td mat-cell *matCellDef="let element" class="p-2">{{ element.lastName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="address">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
-        <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Address</th>
+        <td mat-cell *matCellDef="let element" class="p-2">{{ element.address }}</td>
       </ng-container>
 
       <ng-container matColumnDef="birthDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Birth Date</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header >Birth Date</th>
         <td mat-cell *matCellDef="let element">
           {{ element.birthDate.toDate() | date: 'mediumDate' }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="civilStatus">
-        <th mat-header-cell *matHeaderCellDef>Civil Status</th>
-        <td mat-cell *matCellDef="let element">{{ element.civilStatus }}</td>
+        <th mat-header-cell *matHeaderCellDef class="p-2">Civil Status</th>
+        <td mat-cell *matCellDef="let element" class="p-2">{{ element.civilStatus }}</td>
       </ng-container>
 
       <ng-container matColumnDef="sex">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sex</th>
-        <td mat-cell *matCellDef="let element">{{ element.sex }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Sex</th>
+        <td mat-cell *matCellDef="let element" class="p-2">{{ element.sex }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdBy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
+        <td mat-cell *matCellDef="let element" class="p-2">
+          {{ element.createdBy }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Created At</th>
+        <td mat-cell *matCellDef="let element" class="p-2">
           {{ element.createdAt.toDate() | date }}
         </td>
       </ng-container>
@@ -119,6 +126,7 @@ export class PatientTableComponent {
     'birthDate',
     'civilStatus',
     'sex',
+    'createdBy',
     'createdAt',
     'options',
   ];
