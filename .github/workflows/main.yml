@@ -15,6 +15,6 @@ jobs:
 
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }} # see the Configuration section for how you can create secrets
-          base_href: /TenazasHealthIS/ # make sure this corresponds to https://<your_username>.github.io/<base_href>/
+          base_href: / # make sure this corresponds to https://<your_username>.github.io/<base_href>/
           angular_dist_build_folder: Client/dist/Client # The folder where your project is supposed to be after running ng build by the action.
           angular_project_dir: ./Client
