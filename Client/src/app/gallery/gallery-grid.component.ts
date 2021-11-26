@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from '../common/auth.service';
 import { GalleryGridItem } from './gallery-grid-item.component';
 
 @Component({
@@ -29,7 +30,7 @@ export class GalleryGridComponent implements OnInit {
     {
       name: 'Patients',
       path: './Patients',
-      description: 'Manage your patient\'s personal information.',
+      description: "Manage your patient's personal information.",
       image: 'assets/doctor.png',
     },
     {
@@ -58,7 +59,7 @@ export class GalleryGridComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit(): void {}
 }

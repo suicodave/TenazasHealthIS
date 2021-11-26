@@ -1,3 +1,4 @@
+import { RoleBasedComponent } from './../common/role-based-component';
 import { Engagement } from './engagement-dto';
 import {
   AngularFirestore,
@@ -16,6 +17,7 @@ import {
 } from '../common/injection-tokens';
 import { EngagementFormComponent } from './engagement-form.component';
 import { Patient } from '../patient/patient-table.component';
+import { AuthService } from '../common/auth.service';
 
 @Component({
   selector: 'app-engagement-by-patient',
@@ -29,6 +31,7 @@ import { Patient } from '../patient/patient-table.component';
       matSort
       #matSort="matSort"
       [sort]="matSort"
+      [readonly]="!isEditorRole"
     >
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -105,7 +108,12 @@ import { Patient } from '../patient/patient-table.component';
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
           <div class="flex justify-end">
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-yellow-600">
+            <button
+              *ngIf="isEditorRole"
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              class="text-yellow-600"
+            >
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
@@ -145,7 +153,10 @@ import { Patient } from '../patient/patient-table.component';
     },
   ],
 })
-export class EngagementByPatientComponent implements OnInit {
+export class EngagementByPatientComponent
+  extends RoleBasedComponent
+  implements OnInit
+{
   displayedColumns = [
     'id',
     'bloodPressure',
@@ -174,9 +185,12 @@ export class EngagementByPatientComponent implements OnInit {
   }
 
   constructor(
+    auth: AuthService,
     private firestore: AngularFirestore,
     @Inject(COLLECTION_NAME) private collectionName: string
-  ) {}
+  ) {
+    super(auth);
+  }
 
   ngOnInit(): void {}
 }

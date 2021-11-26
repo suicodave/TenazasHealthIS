@@ -1,3 +1,4 @@
+import { RoleBasedComponent } from './../common/role-based-component';
 import {
   COLLECTION_DISPLAY_NAME,
   COLLECTION_NAME,
@@ -25,33 +26,50 @@ import { PatientFormComponent } from './patient-form.component';
       matSort
       #matSort="matSort"
       [sort]="matSort"
+      [readonly]="!isEditorRole"
     >
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
       <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">First Name</th>
-        <td mat-cell *matCellDef="let element" class="p-2">{{ element.firstName }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
+          First Name
+        </th>
+        <td mat-cell *matCellDef="let element" class="p-2">
+          {{ element.firstName }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="middleName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Middle Name</th>
-        <td mat-cell *matCellDef="let element" class="p-2">{{ element.middleName }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
+          Middle Name
+        </th>
+        <td mat-cell *matCellDef="let element" class="p-2">
+          {{ element.middleName }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Last Name</th>
-        <td mat-cell *matCellDef="let element" class="p-2">{{ element.lastName }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
+          Last Name
+        </th>
+        <td mat-cell *matCellDef="let element" class="p-2">
+          {{ element.lastName }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="address">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Address</th>
-        <td mat-cell *matCellDef="let element" class="p-2">{{ element.address }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
+          Address
+        </th>
+        <td mat-cell *matCellDef="let element" class="p-2">
+          {{ element.address }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="birthDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header >Birth Date</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Birth Date</th>
         <td mat-cell *matCellDef="let element">
           {{ element.birthDate.toDate() | date: 'mediumDate' }}
         </td>
@@ -59,12 +77,18 @@ import { PatientFormComponent } from './patient-form.component';
 
       <ng-container matColumnDef="civilStatus">
         <th mat-header-cell *matHeaderCellDef class="p-2">Civil Status</th>
-        <td mat-cell *matCellDef="let element" class="p-2">{{ element.civilStatus }}</td>
+        <td mat-cell *matCellDef="let element" class="p-2">
+          {{ element.civilStatus }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="sex">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Sex</th>
-        <td mat-cell *matCellDef="let element" class="p-2">{{ element.sex }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
+          Sex
+        </th>
+        <td mat-cell *matCellDef="let element" class="p-2">
+          {{ element.sex }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="createdBy">
@@ -75,7 +99,9 @@ import { PatientFormComponent } from './patient-form.component';
       </ng-container>
 
       <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">Created At</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
+          Created At
+        </th>
         <td mat-cell *matCellDef="let element" class="p-2">
           {{ element.createdAt.toDate() | date }}
         </td>
@@ -116,7 +142,7 @@ import { PatientFormComponent } from './patient-form.component';
     },
   ],
 })
-export class PatientTableComponent {
+export class PatientTableComponent extends RoleBasedComponent {
   displayedColumns = [
     'id',
     'firstName',
