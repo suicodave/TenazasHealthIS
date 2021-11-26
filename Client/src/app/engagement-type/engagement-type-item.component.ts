@@ -27,6 +27,7 @@ import { Component, Input, OnInit } from '@angular/core';
         appDeleteTrigger
         [id]="item.id!"
         [ngClass]="{ hidden: !showDelete }"
+        *ngIf="!readonly"
       >
         <mat-icon class="text-red-500"> delete_outline </mat-icon>
       </button>
@@ -36,7 +37,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class EngagementTypeItemComponent implements OnInit {
   @Input() item!: EngagementTypeItem;
 
-  @Input() showDelete: boolean = false;
+  showDelete: boolean = false;
+
+  @Input() readonly: boolean = false;
 
   constructor() {}
 

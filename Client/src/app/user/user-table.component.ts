@@ -1,6 +1,9 @@
+import { RoleBasedComponent } from './../common/role-based-component';
+import { Subscription } from 'rxjs';
 import { Role } from './../role/role-table.component';
 import { AuditableModel } from './../common/dto';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthService } from '../common/auth.service';
 
 @Component({
   selector: 'app-user-table',
@@ -12,6 +15,7 @@ import { Component, OnInit } from '@angular/core';
       matSort
       #matSort="matSort"
       [sort]="matSort"
+      [readonly]="!isAdminRole"
     >
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -53,11 +57,16 @@ import { Component, OnInit } from '@angular/core';
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
           <div class="flex justify-end">
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-yellow-600">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              class="text-yellow-600"
+              *ngIf="isAdminRole"
+            >
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item appDeleteTrigger [id]="element.id!" >
+              <button mat-menu-item appDeleteTrigger [id]="element.id!">
                 Delete
               </button>
             </mat-menu>
@@ -67,7 +76,7 @@ import { Component, OnInit } from '@angular/core';
     </app-table>
   `,
 })
-export class UserTableComponent implements OnInit {
+export class UserTableComponent extends RoleBasedComponent {
   displayedColumns = [
     'id',
     'email',
@@ -78,9 +87,9 @@ export class UserTableComponent implements OnInit {
     'createdAt',
     'options',
   ];
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor(auth: AuthService) {
+    super(auth);
+  }
 }
 
 export interface User extends AuditableModel {

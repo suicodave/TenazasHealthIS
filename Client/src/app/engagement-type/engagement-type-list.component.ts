@@ -1,3 +1,4 @@
+import { RoleBasedComponent } from './../common/role-based-component';
 import { AuditableModel } from '../common/dto';
 import { COLLECTION_NAME } from '../common/injection-tokens';
 import { EngagementTypeItem } from './engagement-type-item.component';
@@ -6,6 +7,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { AuthService } from '../common/auth.service';
 
 @Component({
   selector: 'app-engagement-type-list',
@@ -19,6 +21,7 @@ import {
             color="primary"
             class="rounded-lg text-white"
             appFormCreateTrigger
+            *ngIf="isEditorRole"
           >
             Add Type
           </button>
@@ -28,7 +31,10 @@ import {
         <mat-divider *ngIf="items.length > 0"></mat-divider>
         <ng-container *ngFor="let item of items; last as isLast">
           <div class="p-2">
-            <app-engagement-type-item [item]="item"></app-engagement-type-item>
+            <app-engagement-type-item
+              [item]="item"
+              [readonly]="!isEditorRole"
+            ></app-engagement-type-item>
           </div>
           <mat-divider *ngIf="!isLast"></mat-divider>
         </ng-container>
@@ -36,16 +42,20 @@ import {
     </mat-card>
   `,
 })
-export class EngagementTypeListComponent implements OnInit {
+export class EngagementTypeListComponent
+  extends RoleBasedComponent
+  implements OnInit
+{
   items: EngagementTypeItem[] = [];
 
   collectionRef!: AngularFirestoreCollection<EngagementTypeItem>;
 
   constructor(
     private firestore: AngularFirestore,
-
+    auth: AuthService,
     @Inject(COLLECTION_NAME) private collectionName: string
   ) {
+    super(auth);
     this.collectionRef = this.firestore.collection(this.collectionName);
   }
 

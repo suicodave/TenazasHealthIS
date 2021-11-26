@@ -1,8 +1,10 @@
+import { RoleBasedComponent } from './../common/role-based-component';
 import { COLLECTION_NAME } from './../common/injection-tokens';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Patient } from './patient-table.component';
+import { AuthService } from '../common/auth.service';
 
 @Component({
   selector: 'app-patient-detail-page',
@@ -18,8 +20,6 @@ import { Patient } from './patient-table.component';
           [name]="initials"
         ></ngx-avatar>
 
-
-
         <p class="my-2 text-base text-gray-700">
           {{ data?.firstName | titlecase }} {{ data?.middleName | titlecase }}
           {{ data?.lastName | titlecase }}
@@ -31,6 +31,7 @@ import { Patient } from './patient-table.component';
           class="absolute top-8 right-4"
           [matMenuTriggerFor]="menu"
           color="primary"
+          *ngIf="isEditorRole"
         >
           <mat-icon class="mat-18"> more_vert </mat-icon>
         </button>
@@ -89,16 +90,22 @@ import { Patient } from './patient-table.component';
     </div>
   `,
 })
-export class PatientDetailPageComponent implements OnInit {
+export class PatientDetailPageComponent
+  extends RoleBasedComponent
+  implements OnInit
+{
   id: string | null = this.route.snapshot.paramMap.get('id');
 
   data!: Patient;
 
   constructor(
+    auth: AuthService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
     @Inject(COLLECTION_NAME) private collectionName: string
-  ) {}
+  ) {
+    super(auth);
+  }
 
   ngOnInit(): void {
     this.loadData();
