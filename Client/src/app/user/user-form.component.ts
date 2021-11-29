@@ -6,6 +6,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormComponent } from '../common/forms/form.component';
 import { ROLE } from '../common/collection-names';
+import firebase from 'firebase/app';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-form',
@@ -57,7 +59,7 @@ import { ROLE } from '../common/collection-names';
 export class UserFormComponent implements OnInit, OnDestroy {
   form: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+    password: ['', [Validators.required,Validators.minLength(6)]],
     firstName: ['', Validators.required],
     middleName: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -85,9 +87,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
   createUserCredentials(data: any) {
     const { password, email } = this.form.value;
 
-    this.fireAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((x) => {});
+    var authApp = firebase.initializeApp(environment.firebaseConfig,'detached');
+    var detachedAuth = authApp.auth();
+
+    detachedAuth.createUserWithEmailAndPassword(email, password).then((x) => {
+      console.log(`Created user: ${x.user?.email}`);
+    });
   }
 
   resolveFormValue(formGroup: FormGroup) {
