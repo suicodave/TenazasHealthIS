@@ -9,7 +9,10 @@ import { SignOutDialogComponent } from './sign-out-dialog.component';
   template: `
     <mat-toolbar color="primary">
       <div class="flex justify-between items-center w-full">
-        <a href="">Tenazas Health Information System</a>
+        <a href="" class="flex items-center"
+          >Tenazas Health Information System
+          <mat-icon class="ml-2 mat-18">home</mat-icon></a
+        >
 
         <div class="controls">
           <span class="text-sm mr-4"> {{ user?.email }} </span>
