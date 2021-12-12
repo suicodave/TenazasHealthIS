@@ -1,6 +1,8 @@
 import { User } from './../user/user-table.component';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SignOutDialogComponent } from './sign-out-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -11,7 +13,7 @@ import { AuthService } from './auth.service';
 
         <div class="controls">
           <span class="text-sm mr-4"> {{ user?.email }} </span>
-          <button mat-icon-button appSignOut>
+          <button mat-icon-button (click)="confirmSignOut()">
             <mat-icon class="mat-18">power_settings_new</mat-icon>
           </button>
         </div>
@@ -20,7 +22,7 @@ import { AuthService } from './auth.service';
   `,
 })
 export class ToolbarComponent implements OnInit {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private dialog: MatDialog) {}
 
   user: User | null = null;
 
@@ -30,5 +32,11 @@ export class ToolbarComponent implements OnInit {
 
   getUser() {
     return this.auth.getCurrentUser().subscribe((x) => (this.user = x));
+  }
+
+  confirmSignOut() {
+    this.dialog.open(SignOutDialogComponent, {
+      minWidth: '480px',
+    });
   }
 }

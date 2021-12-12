@@ -17,6 +17,7 @@ import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import * as Cloudinary from 'cloudinary-core';
 import { HttpClientModule } from '@angular/common/http';
 import { AvatarModule } from 'ngx-avatar';
+import { SignOutDialogComponent } from './sign-out-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AvatarModule } from 'ngx-avatar';
     SignOutDirective,
     ProfileUploadComponent,
     ProfileUploadTriggerDirective,
+    SignOutDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -58,7 +60,8 @@ import { AvatarModule } from 'ngx-avatar';
     ProfileUploadComponent,
     ProfileUploadTriggerDirective,
     AvatarModule,
-    FormsModule
+    FormsModule,
+    SignOutDialogComponent
   ],
 })
 export class SharedModule {}

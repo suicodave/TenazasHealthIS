@@ -21,7 +21,7 @@ import { AuthService } from '../common/auth.service';
             color="primary"
             class="rounded-lg text-white"
             appFormCreateTrigger
-            *ngIf="isEditorRole"
+            *ngIf="isAdminRole"
           >
             Add Type
           </button>
@@ -33,7 +33,7 @@ import { AuthService } from '../common/auth.service';
           <div class="p-2">
             <app-engagement-type-item
               [item]="item"
-              [readonly]="!isEditorRole"
+              [readonly]="!isAdminRole"
             ></app-engagement-type-item>
           </div>
           <mat-divider *ngIf="!isLast"></mat-divider>
