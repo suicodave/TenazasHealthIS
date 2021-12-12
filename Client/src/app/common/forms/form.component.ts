@@ -60,6 +60,8 @@ export class FormComponent implements OnInit {
 
   @Output() added = new EventEmitter<any>();
 
+  @Output() updated = new EventEmitter<any>();
+
   constructor(
     @Inject(DOMAIN_DISPLAY_NAME) public displayName: string,
     @Inject(COLLECTION_NAME) private collectionName: string,
@@ -92,17 +94,23 @@ export class FormComponent implements OnInit {
 
     this.isSaving = false;
 
-    this.added.emit(value);
-
     this.dialogRef.close();
   }
 
   resolveAction() {
     if (this.isEditingMode) {
-      return this.update(this.form);
+      const value = this.update(this.form);
+
+      this.updated.emit(value);
+
+      return value;
     }
 
-    return this.create(this.form);
+    const value = this.create(this.form);
+
+    this.added.emit(value);
+
+    return value;
   }
 
   create(form: FormGroup) {

@@ -1,13 +1,14 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { Role } from './../role/role-table.component';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormComponent } from '../common/forms/form.component';
 import { ROLE } from '../common/collection-names';
 import firebase from 'firebase/app';
 import { environment } from 'src/environments/environment';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { User } from './user-table.component';
 
 @Component({
   selector: 'app-user-form',
@@ -17,14 +18,15 @@ import { environment } from 'src/environments/environment';
       [formGroup]="form"
       (added)="createUserCredentials($event)"
       [formValue]="resolveFormValue"
+      [id]="data?.id"
     >
       <div class="grid grid-cols-3 gap-4">
-        <mat-form-field class="w-full">
+        <mat-form-field class="w-full" *ngIf="!data">
           <mat-label>Email</mat-label>
           <input matInput type="email" required formControlName="email" />
         </mat-form-field>
 
-        <mat-form-field class="w-full">
+        <mat-form-field class="w-full" *ngIf="!data">
           <mat-label>Default Password</mat-label>
           <input matInput type="password" required formControlName="password" />
         </mat-form-field>
@@ -46,7 +48,7 @@ import { environment } from 'src/environments/environment';
 
         <mat-form-field>
           <mat-label>Role</mat-label>
-          <mat-select formControlName="role">
+          <mat-select formControlName="role" [compareWith]="compareRole">
             <mat-option *ngFor="let item of roles" [value]="item">
               {{ item.name }}
             </mat-option>
@@ -59,7 +61,7 @@ import { environment } from 'src/environments/environment';
 export class UserFormComponent implements OnInit, OnDestroy {
   form: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required,Validators.minLength(6)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
     firstName: ['', Validators.required],
     middleName: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -74,7 +76,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private fireAuth: AngularFireAuth,
 
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+
+    @Inject(MAT_DIALOG_DATA) public data: User
   ) {}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -82,12 +86,17 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getRoles();
+
+    this.initFormForUpdate();
   }
 
   createUserCredentials(data: any) {
     const { password, email } = this.form.value;
 
-    var authApp = firebase.initializeApp(environment.firebaseConfig,'detached');
+    var authApp = firebase.initializeApp(
+      environment.firebaseConfig,
+      'detached'
+    );
     var detachedAuth = authApp.auth();
 
     detachedAuth.createUserWithEmailAndPassword(email, password).then((x) => {
@@ -106,5 +115,22 @@ export class UserFormComponent implements OnInit, OnDestroy {
       .collection<Role>(ROLE, (ref) => ref.orderBy('name', 'asc'))
       .valueChanges({ idField: 'id' })
       .subscribe((x) => (this.roles = x));
+  }
+
+  initFormForUpdate() {
+    if (!this.data) {
+      return;
+    }
+
+    this.form = this.formBuilder.group({
+      firstName: [this.data.firstName, Validators.required],
+      middleName: [this.data.middleName, Validators.required],
+      lastName: [this.data.lastName, Validators.required],
+      role: [this.data.role, Validators.required],
+    });
+  }
+
+  compareRole(role1: Role, role2: Role) {
+    return role1.name == role2.name;
   }
 }
