@@ -1,9 +1,11 @@
+import { UserFormComponent } from './user-form.component';
 import { RoleBasedComponent } from './../common/role-based-component';
 import { Subscription } from 'rxjs';
 import { Role } from './../role/role-table.component';
 import { AuditableModel } from './../common/dto';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../common/auth.service';
+import { UPDATE_DIALOG_COMPONENT } from '../common/injection-tokens';
 
 @Component({
   selector: 'app-user-table',
@@ -66,6 +68,9 @@ import { AuthService } from '../common/auth.service';
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+              <button mat-menu-item appFormUpdateTrigger [data]="element">
+                Edit
+              </button>
               <button mat-menu-item appDeleteTrigger [id]="element.id!">
                 Delete
               </button>
@@ -75,6 +80,12 @@ import { AuthService } from '../common/auth.service';
       </ng-container>
     </app-table>
   `,
+  providers: [
+    {
+      provide: UPDATE_DIALOG_COMPONENT,
+      useValue: UserFormComponent,
+    },
+  ],
 })
 export class UserTableComponent extends RoleBasedComponent {
   displayedColumns = [
