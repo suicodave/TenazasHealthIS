@@ -28,9 +28,15 @@ import { PatientFormComponent } from './patient-form.component';
       [sort]="matSort"
       [readonly]="!isEditorRole"
     >
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Id</th>
-        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef>Avatar</th>
+        <td mat-cell *matCellDef="let element">
+          <ngx-avatar
+            [src]="element?.profileImage"
+            size="32"
+            [name]="getInitials(element)"
+          ></ngx-avatar>
+        </td>
       </ng-container>
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
@@ -144,7 +150,7 @@ import { PatientFormComponent } from './patient-form.component';
 })
 export class PatientTableComponent extends RoleBasedComponent {
   displayedColumns = [
-    'id',
+    'avatar',
     'firstName',
     'middleName',
     'lastName',
@@ -156,6 +162,10 @@ export class PatientTableComponent extends RoleBasedComponent {
     'createdAt',
     'options',
   ];
+
+  getInitials(item: Patient) {
+    return `${item.firstName} ${item.lastName}`;
+  }
 }
 
 export interface Patient extends AuditableModel {
