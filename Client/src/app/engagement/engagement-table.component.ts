@@ -106,7 +106,7 @@ import { EngagementFormComponent } from './engagement-form.component';
       <ng-container matColumnDef="createdBy">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.createdBy }}
+          {{ element.createdBy | userFullname | async }}
         </td>
       </ng-container>
     </app-table>
