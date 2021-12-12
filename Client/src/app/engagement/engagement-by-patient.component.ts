@@ -93,7 +93,6 @@ import { AuthService } from '../common/auth.service';
         </td>
       </ng-container>
 
-
       <ng-container matColumnDef="story">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Story</th>
         <td mat-cell *matCellDef="let element">
@@ -111,7 +110,7 @@ import { AuthService } from '../common/auth.service';
       <ng-container matColumnDef="createdBy">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.createdBy }}
+          {{ element.createdBy | userFullname | async }}
         </td>
       </ng-container>
 

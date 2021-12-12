@@ -100,7 +100,7 @@ import { PatientFormComponent } from './patient-form.component';
       <ng-container matColumnDef="createdBy">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
         <td mat-cell *matCellDef="let element" class="p-2">
-          {{ element.createdBy }}
+          {{ element.createdBy | userFullname | async }}
         </td>
       </ng-container>
 

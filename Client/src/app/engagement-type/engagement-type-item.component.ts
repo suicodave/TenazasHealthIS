@@ -17,7 +17,7 @@ import { Component, Input, OnInit } from '@angular/core';
         </p>
 
         <p class="my-1 text-xs text-gray-500">
-          {{ item.createdBy }}
+          {{ item.createdBy | userFullname | async }}
         </p>
       </div>
 
