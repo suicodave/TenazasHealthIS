@@ -1,3 +1,4 @@
+import { EngagementService } from './../common/engagement.service';
 import { RoleBasedComponent } from './../common/role-based-component';
 import { Engagement } from './engagement-dto';
 import {
@@ -83,6 +84,16 @@ import { AuthService } from '../common/auth.service';
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="bmi">
+        <th mat-header-cell *matHeaderCellDef>BMI</th>
+        <td mat-cell *matCellDef="let element">
+          {{ engagementService.getBmi(element.weight, element.height) }}({{
+            engagementService.getBmiRemark(element.weight, element.height)
+          }})
+        </td>
+      </ng-container>
+
+
       <ng-container matColumnDef="story">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Story</th>
         <td mat-cell *matCellDef="let element">
@@ -165,6 +176,7 @@ export class EngagementByPatientComponent
     'engagementDate',
     'height',
     'weight',
+    'bmi',
     'story',
     'createdAt',
     'createdBy',
@@ -187,7 +199,8 @@ export class EngagementByPatientComponent
   constructor(
     auth: AuthService,
     private firestore: AngularFirestore,
-    @Inject(COLLECTION_NAME) private collectionName: string
+    @Inject(COLLECTION_NAME) private collectionName: string,
+    public engagementService: EngagementService
   ) {
     super(auth);
   }

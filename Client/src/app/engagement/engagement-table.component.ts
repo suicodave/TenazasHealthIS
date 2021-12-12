@@ -1,3 +1,4 @@
+import { EngagementService } from './../common/engagement.service';
 import { Component, OnInit } from '@angular/core';
 import { ENGAGEMENT } from '../common/collection-names';
 import {
@@ -65,13 +66,24 @@ import { EngagementFormComponent } from './engagement-form.component';
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="bmi">
+        <th mat-header-cell *matHeaderCellDef>BMI</th>
+        <td mat-cell *matCellDef="let element">
+          {{ engagementService.getBmi(element.weight, element.height) }}({{
+            engagementService.getBmiRemark(element.weight, element.height)
+          }})
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="temperature">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Temperature</th>
         <td mat-cell *matCellDef="let element">{{ element.temperature }}</td>
       </ng-container>
 
       <ng-container matColumnDef="engagementDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Engagement Date</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Engagement Date
+        </th>
         <td mat-cell *matCellDef="let element">
           {{ element.engagementDate.toDate() | date }}
         </td>
@@ -88,6 +100,13 @@ import { EngagementFormComponent } from './engagement-form.component';
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
         <td mat-cell *matCellDef="let element">
           {{ element.createdAt.toDate() | date }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdBy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdBy }}
         </td>
       </ng-container>
     </app-table>
@@ -119,13 +138,15 @@ export class EngagementTableComponent implements OnInit {
     'bloodPressure',
     'weight',
     'height',
+    'bmi',
     'engagementDate',
     'story',
     'temperature',
     'createdAt',
+    'createdBy',
   ];
 
-  constructor() {}
+  constructor(public engagementService: EngagementService) {}
 
   ngOnInit(): void {}
 

@@ -5,10 +5,8 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <div class="w-full min-h-full bg-gray-200 ">
       <app-toolbar></app-toolbar>
-      <div class="flex justify-center items-center w-full mt-8">
-        <div class="w-4/5">
-          <app-engagement-table></app-engagement-table>
-        </div>
+      <div class="px-8 w-full mt-8">
+        <app-engagement-table></app-engagement-table>
       </div>
     </div>
   `,
