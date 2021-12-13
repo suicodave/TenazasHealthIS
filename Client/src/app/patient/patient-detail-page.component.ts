@@ -57,26 +57,31 @@ import { AuthService } from '../common/auth.service';
           <app-patient-property-card key="Last Name">{{
             data?.lastName
           }}</app-patient-property-card>
-          <app-patient-property-card key="Birth Date" icon="cake">{{
-            data?.birthDate?.toDate() | date: 'longDate'
-          }}</app-patient-property-card>
 
-          <div class="col-span-2">
-            <app-patient-property-card key="Address" icon="home">{{
-              data?.address
-            }}</app-patient-property-card>
-          </div>
+          <app-patient-property-card key="Contact Number">{{
+            data?.contactNumber
+          }}</app-patient-property-card>
 
           <app-patient-property-card key="Civil Status">{{
             data?.civilStatus
           }}</app-patient-property-card>
 
-          <app-patient-property-card key="Sex">{{
-            data?.sex
+          <app-patient-property-card key="Birth Date" icon="cake">{{
+            data?.birthDate?.toDate() | date: 'longDate'
           }}</app-patient-property-card>
 
           <app-patient-property-card key="Age">{{
             age
+          }}</app-patient-property-card>
+
+          <div>
+            <app-patient-property-card key="Address" icon="home">{{
+              data?.address
+            }}</app-patient-property-card>
+          </div>
+
+          <app-patient-property-card key="Sex">{{
+            data?.sex
           }}</app-patient-property-card>
         </div>
       </div>

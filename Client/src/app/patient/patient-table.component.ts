@@ -65,6 +65,15 @@ import { PatientFormComponent } from './patient-form.component';
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="contactNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
+          Contact Number
+        </th>
+        <td mat-cell *matCellDef="let element" class="p-2">
+          {{ element.contactNumber }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="address">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
           Address
@@ -155,6 +164,7 @@ export class PatientTableComponent extends RoleBasedComponent {
     'middleName',
     'lastName',
     'address',
+    'contactNumber',
     'birthDate',
     'civilStatus',
     'sex',
@@ -174,6 +184,8 @@ export interface Patient extends AuditableModel {
   middleName: string;
 
   lastName: string;
+
+  contactNumber: string;
 
   address: string;
 
