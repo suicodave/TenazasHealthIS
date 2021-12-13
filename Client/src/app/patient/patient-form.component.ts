@@ -20,7 +20,18 @@ import { Patient } from './patient-table.component';
           <mat-label>Last Name</mat-label>
           <input matInput type="text" required formControlName="lastName" />
         </mat-form-field>
-        <mat-form-field appearance="outline" class="w-full col-span-3">
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Contact Number</mat-label>
+          <input
+            matInput
+            type="text"
+            required
+            formControlName="contactNumber"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full col-span-2">
           <mat-label>Address</mat-label>
           <input matInput type="text" required formControlName="address" />
         </mat-form-field>
@@ -68,6 +79,7 @@ export class PatientFormComponent implements OnInit {
     firstName: [this.data?.firstName, Validators.required],
     middleName: [this.data?.middleName, Validators.required],
     lastName: [this.data?.lastName, Validators.required],
+    contactNumber: [this.data?.contactNumber, Validators.required],
     sex: [this.data?.sex, Validators.required],
     civilStatus: [this.data?.civilStatus, Validators.required],
     birthDate: [this.data?.birthDate.toDate(), Validators.required],
