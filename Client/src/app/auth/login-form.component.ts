@@ -22,17 +22,27 @@ import { Router } from '@angular/router';
             <mat-label>Password</mat-label>
             <input
               matInput
-              type="password"
+              [type]="hide ? 'password' : 'text'"
               required
               formControlName="password"
             />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+              type="button"
+            >
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
           </mat-form-field>
 
           <div class="flex justify-between items-center">
             <button
               mat-raised-button
               color="primary"
-              [disabled]="isSigningIn"
+              [disabled]="!allowSubmit"
               type="submit"
               class="px-8 py-1"
             >
@@ -50,6 +60,7 @@ export class LoginFormComponent implements OnInit {
   form!: FormGroup;
   isSigningIn: boolean = false;
 
+  hide: boolean = true;
   constructor(
     private fireAuth: AngularFireAuth,
     private formBuilder: FormBuilder,
@@ -63,9 +74,13 @@ export class LoginFormComponent implements OnInit {
     this.initializeForm();
   }
 
+  get allowSubmit(): boolean {
+    return this.form.valid && !this.isSigningIn;
+  }
+
   initializeForm() {
     this.form = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
