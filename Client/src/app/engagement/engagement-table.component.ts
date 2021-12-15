@@ -1,3 +1,5 @@
+import { Engagement } from './engagement-dto';
+import { EngagementDetailComponent } from './engagement-detail.component';
 import { EngagementService } from './../common/engagement.service';
 import { Component, OnInit } from '@angular/core';
 import { ENGAGEMENT } from '../common/collection-names';
@@ -8,6 +10,7 @@ import {
   DOMAIN_DISPLAY_NAME,
 } from '../common/injection-tokens';
 import { EngagementFormComponent } from './engagement-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-engagement-table',
@@ -89,13 +92,6 @@ import { EngagementFormComponent } from './engagement-form.component';
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="story">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Story</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.story }}
-        </td>
-      </ng-container>
-
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
         <td mat-cell *matCellDef="let element">
@@ -103,10 +99,15 @@ import { EngagementFormComponent } from './engagement-form.component';
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="createdBy">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.createdBy | userFullname | async }}
+          <button
+            mat-icon-button
+            (click)="engagementService.viewDetails(element)"
+          >
+            <mat-icon class="mat-18">more_vert</mat-icon>
+          </button>
         </td>
       </ng-container>
     </app-table>
@@ -132,7 +133,6 @@ import { EngagementFormComponent } from './engagement-form.component';
 })
 export class EngagementTableComponent implements OnInit {
   columns = [
-    'id',
     'patient',
     'type',
     'bloodPressure',
@@ -140,10 +140,8 @@ export class EngagementTableComponent implements OnInit {
     'height',
     'bmi',
     'engagementDate',
-    'story',
     'temperature',
-    'createdAt',
-    'createdBy',
+    'actions',
   ];
 
   constructor(public engagementService: EngagementService) {}

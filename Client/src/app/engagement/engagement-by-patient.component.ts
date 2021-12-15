@@ -127,6 +127,12 @@ import { AuthService } from '../common/auth.service';
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+              <button
+                mat-menu-item
+                (click)="engagementService.viewDetails(element)"
+              >
+                View Additional Details
+              </button>
               <button mat-menu-item appFormUpdateTrigger [data]="element">
                 Edit Info
               </button>
@@ -168,7 +174,6 @@ export class EngagementByPatientComponent
   implements OnInit
 {
   displayedColumns = [
-    'id',
     'bloodPressure',
     'temperature',
     'engagementType',
@@ -176,9 +181,7 @@ export class EngagementByPatientComponent
     'height',
     'weight',
     'bmi',
-    'story',
-    'createdAt',
-    'createdBy',
+
     'options',
   ];
 

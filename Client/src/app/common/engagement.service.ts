@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EngagementDetailComponent } from '../engagement/engagement-detail.component';
+import { Engagement } from '../engagement/engagement-dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EngagementService {
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   getBmi(weight: number, height: number) {
     const metricHeight = height / 100;
@@ -37,5 +40,12 @@ export class EngagementService {
     }
 
     return 'Obesity Class 3';
+  }
+
+  viewDetails(engagement: Engagement) {
+    this.dialog.open(EngagementDetailComponent, {
+      width: '768px',
+      data: engagement,
+    });
   }
 }

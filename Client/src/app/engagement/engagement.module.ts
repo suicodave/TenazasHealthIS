@@ -1,3 +1,4 @@
+import { EngagementDetailComponent } from './engagement-detail.component';
 import { EngagementPageComponent } from './engagement-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { EngagementTypeModule } from './../engagement-type/engagement-type.module';
@@ -17,27 +18,21 @@ import { EngagementFormComponent } from './engagement-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EngagementTableComponent } from './engagement-table.component';
 
-
-
 @NgModule({
   declarations: [
     EngagementByPatientComponent,
     EngagementFormComponent,
     EngagementTableComponent,
     EngagementPageComponent,
+    EngagementDetailComponent,
   ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    SharedModule,
-    ReactiveFormsModule,
-
-  ],
+  imports: [CommonModule, MaterialModule, SharedModule, ReactiveFormsModule],
   exports: [
     EngagementByPatientComponent,
     EngagementFormComponent,
     EngagementTableComponent,
     EngagementPageComponent,
+    EngagementDetailComponent,
   ],
 })
 export class EngagementModule {}
